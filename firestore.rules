@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Café seed data from OpenStreetMap: anyone can read, only the
+    // upload script (Admin SDK, which bypasses rules) can write.
+    match /cafes/{cafeId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Everything else stays locked until its feature is built.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
