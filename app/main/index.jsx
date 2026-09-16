@@ -1,7 +1,9 @@
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
-  Alert,
-  Image,
+  ActivityIndicator,
+  Keyboard,
+  Linking,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -12,99 +14,157 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import MapView, { Marker } from "react-native-maps";
 import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useCafes } from "@/hooks/useCafes";
+import { useUserLocation } from "@/hooks/useUserLocation";
+import {
+  UNION_COUNTY_REGION,
+  distanceMiles,
+  formatDistance,
+  isInServiceArea,
+  walkingMinutes,
+} from "@/lib/geo";
+import { getOpenStatus } from "@/lib/hours";
 
-const CAFES = [
-  {
-    id: "aroma",
-    name: "Aroma & Crema - Downtown",
-    rating: 4.9,
-    reviews: 124,
-    distance: "0.4 miles",
-    hours: "Open until 8 PM",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAH3CB90ARsiAW8KBRej2HYd2Nh-LNRF2Nihf5Y8JL9nlAkbEg_AuDL6gG9lYAi439GqliiRMyPIPCa0aX12dgKn4i7ZOEwW1toeYIe31Kd5ZavDxxWwYGCaQe0kdufU2VJRNH2VxabtqlhlK5GQRBIvP8dBNTEU_IsBDfvJh65jKh1LiwEXjBHKkxi5Jjec22NogIqqHTRKfVOtm9J0dyT2Kc-NvUc2w7aQ2tnkpAkVVh9j8zu-u9T_gKz6_vB1CjxP3NSg85yvOQ",
-    selected: true,
-  },
-  {
-    id: "bean",
-    name: "Bean & Leaf - Westside",
-    rating: 4.7,
-    reviews: 89,
-    distance: "1.2 miles",
-    hours: "Open until 7 PM",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDkLmP71pBZPPbPDZ7Gr7pPTdEMP9UFF5Lj_jt1VCGBfg42ljIW-BZxmgY-DNsLvULfhiP0sFici97Lk1rSwZ0cd6mqScxHPyEUIl2FRe8Uy3mZy0LGphdgPIJnp3qjXkby7m79F8oW5rV25hQvKUBpIBrqAMFzaKq7j3FPfN0_YhEVqn2eKtzFjK3KHnu8fMhtIAAcDX5cKLGN1vn66kxBGOo-JQkZLWaZ_ywgsQ-q50ASIWKAubyslXffiAA_86O5kiBa53e-WZc",
-  },
-  {
-    id: "roastery",
-    name: "The Roastery Lab",
-    rating: 4.8,
-    reviews: 210,
-    distance: "2.1 miles",
-    hours: "Open until 9 PM",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAnr5cxvOxU61XNamNND_KWjJt-EePhiSZjwmRYRmYpmfH7UcioekNPv39g_pmoOHW4eeqEQz57_QnXA_Uz1fPK-g3OtrKzdrkMiSVF02PlglTEP3ZHzQk8CuRBHoHs_nuHwipD5NP5UaJavtJl6PbEFW4NwHjlhGznNpj_eK4YsGqr1Pu5sBLbxNPJJSVbSmWQzBzQVcWeUlaaq3QXYKbwHjapVd1fuFpGidWALw_7I5NRNyuQe1BSf6oTXK-f8aAkBSEwu6RclPc",
-  },
-];
+// Collapsed shows only the handle and heading (21pt handle + 64pt heading);
+// anything taller lets the first card peek in. Drag up for the list.
+const COLLAPSED_SHEET_HEIGHT = 84;
+const SNAP_POINTS = [COLLAPSED_SHEET_HEIGHT, "50%", "100%"];
 
-const PINS = [
-  { top: "38%", left: "26%", color: Palette.secondary, size: 40 },
-  { top: "55%", left: "60%", color: Palette.onSurfaceVariant, size: 36 },
-  { top: "22%", left: "72%", color: Palette.onSurfaceVariant, size: 36 },
-];
-
-const DOT_ROWS = 14;
-const DOT_COLS = 10;
+// Profile + bell buttons: 16pt below the safe area, two 44pt buttons with a 10pt
+// gap. The sheet stops just below them so it never slides under the icons.
+const FLOAT_ICONS_BOTTOM = 16 + 44 + 10 + 44;
+const SHEET_TOP_GAP = 12;
+const WALKABLE_MILES = 1.5;
 
 export default function FinderView() {
   const insets = useSafeAreaInsets();
+  const mapRef = useRef(null);
   const sheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["38%", "92%"], []);
+  const sheetIndexRef = useRef(0);
+  const markerPressRef = useRef(false);
+  const listRef = useRef(null);
+
+  const { cafes, loading, error, reload } = useCafes();
+  const { coords } = useUserLocation();
+  const nearby = coords != null && isInServiceArea(coords);
+
   const [notifOpen, setNotifOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [independentOnly, setIndependentOnly] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const visibleCafes = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return cafes
+      .filter((cafe) => !independentOnly || !cafe.isChain)
+      .filter(
+        (cafe) =>
+          !needle ||
+          cafe.name.toLowerCase().includes(needle) ||
+          cafe.municipality?.toLowerCase().includes(needle)
+      )
+      .map((cafe) => ({ ...cafe, miles: nearby ? distanceMiles(coords, cafe.coordinate) : null }))
+      .sort((a, b) => (nearby ? a.miles - b.miles : a.name.localeCompare(b.name)));
+  }, [cafes, query, independentOnly, nearby, coords]);
+
+  // Keep the selected café pinned to the top of the sheet.
+  const listData = useMemo(() => {
+    const selected = visibleCafes.find((cafe) => cafe.id === selectedId);
+    return selected ? [selected, ...visibleCafes.filter((cafe) => cafe.id !== selectedId)] : visibleCafes;
+  }, [visibleCafes, selectedId]);
+
+  const selectCafe = useCallback((cafe) => {
+    Keyboard.dismiss();
+    // iOS reports a marker tap to the map as well; ignore that follow-up press
+    // so it doesn't immediately clear the selection we just made.
+    markerPressRef.current = true;
+    setTimeout(() => {
+      markerPressRef.current = false;
+    }, 700);
+
+    setSelectedId(cafe.id);
+    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+    // Lift the sheet off the collapsed header, but never drag it back down.
+    sheetRef.current?.snapToIndex(Math.max(1, sheetIndexRef.current));
+    mapRef.current?.animateToRegion(
+      { ...cafe.coordinate, latitudeDelta: 0.03, longitudeDelta: 0.03 },
+      350
+    );
+  }, []);
+
+  const handleCardPress = (cafe) => {
+    if (cafe.id === selectedId) {
+      setSelectedId(null);
+    } else {
+      selectCafe(cafe);
+    }
+  };
+
+  const handleMapPress = (event) => {
+    if (event.nativeEvent.action === "marker-press" || markerPressRef.current) return;
+    Keyboard.dismiss();
+    setSelectedId(null);
+  };
+
+  const searchTop = insets.top + 16;
 
   return (
     <View style={styles.root}>
       <View style={styles.mapArea}>
-        <View style={styles.mapBg}>
-          <View style={styles.dots} pointerEvents="none">
-            {Array.from({ length: DOT_ROWS }).map((_, r) => (
-              <View key={r} style={styles.dotRow}>
-                {Array.from({ length: DOT_COLS }).map((_, c) => (
-                  <View key={c} style={styles.dot} />
-                ))}
-              </View>
-            ))}
-          </View>
-          {PINS.map((pin, i) => (
-            <View
-              key={i}
-              style={[styles.pin, { top: pin.top, left: pin.left }]}
-              pointerEvents="none"
-            >
-              <Ionicons name="location" size={pin.size} color={pin.color} />
-            </View>
-          ))}
-        </View>
-
-        <BlurView
-          intensity={40}
-          tint="light"
-          style={[styles.searchBar, { top: insets.top + 16 }]}
+        <MapView
+          ref={mapRef}
+          style={StyleSheet.absoluteFill}
+          initialRegion={UNION_COUNTY_REGION}
+          showsUserLocation={nearby}
+          showsPointsOfInterest={false}
+          mapPadding={{ top: searchTop + 48, bottom: COLLAPSED_SHEET_HEIGHT, left: 0, right: 0 }}
+          onPress={handleMapPress}
         >
+          {visibleCafes.map((cafe) => (
+            <Marker
+              key={cafe.id}
+              coordinate={cafe.coordinate}
+              pinColor={cafe.id === selectedId ? Palette.secondary : Palette.primary}
+              onPress={() => selectCafe(cafe)}
+              accessibilityLabel={cafe.name}
+            />
+          ))}
+        </MapView>
+
+        <BlurView intensity={40} tint="light" style={[styles.searchBar, { top: searchTop }]}>
           <Ionicons name="search" size={18} color={Palette.outline} />
           <TextInput
-            placeholder="Search for a neighborhood or cafe"
+            placeholder="Search cafés or towns"
             placeholderTextColor="rgba(79,68,66,0.6)"
             style={styles.searchInput}
+            value={query}
+            onChangeText={setQuery}
+            returnKeyType="search"
+            autoCorrect={false}
+            clearButtonMode="while-editing"
           />
-          <Ionicons name="options-outline" size={18} color={Palette.secondary} />
+          <Pressable
+            onPress={() => setIndependentOnly((v) => !v)}
+            hitSlop={8}
+            style={[styles.filterBtn, independentOnly && styles.filterBtnActive]}
+            accessibilityRole="switch"
+            accessibilityState={{ checked: independentOnly }}
+            accessibilityLabel="Show independent cafés only"
+          >
+            <Ionicons
+              name={independentOnly ? "options" : "options-outline"}
+              size={18}
+              color={independentOnly ? Palette.onPrimary : Palette.secondary}
+            />
+          </Pressable>
         </BlurView>
 
-        <View style={[styles.floatIcons, { top: insets.top + 16 }]}>
+        <View style={[styles.floatIcons, { top: searchTop }]}>
           <Pressable
             style={({ pressed }) => [styles.floatBtn, pressed && styles.pressed]}
             onPress={() => router.push("/main/profile")}
@@ -131,70 +191,147 @@ export default function FinderView() {
         <BottomSheet
           ref={sheetRef}
           index={0}
-          snapPoints={snapPoints}
+          snapPoints={SNAP_POINTS}
+          topInset={insets.top + FLOAT_ICONS_BOTTOM + SHEET_TOP_GAP}
           backgroundStyle={styles.sheetBg}
           handleStyle={styles.sheetHandleArea}
           handleIndicatorStyle={styles.handle}
+          keyboardBehavior="extend"
+          onChange={(index) => {
+            sheetIndexRef.current = index;
+          }}
         >
           <View style={styles.sheetHeading}>
-            <Text style={styles.sheetTitle}>Nearby Cafés</Text>
-            <Text style={styles.sheetCount}>{CAFES.length} found</Text>
+            <Text style={styles.sheetTitle}>{nearby ? "Nearby Cafés" : "Union County Cafés"}</Text>
+            {!loading && !error && (
+              <Text style={styles.sheetCount}>
+                {visibleCafes.length} {independentOnly ? "independent" : "found"}
+              </Text>
+            )}
           </View>
-          <BottomSheetScrollView
-            contentContainerStyle={styles.sheetList}
-            showsVerticalScrollIndicator={false}
-          >
-            {CAFES.map((cafe) => (
-              <CafeCard key={cafe.id} cafe={cafe} />
-            ))}
-          </BottomSheetScrollView>
+
+          {loading ? (
+            <View style={styles.sheetMessage}>
+              <ActivityIndicator color={Palette.secondary} />
+            </View>
+          ) : error ? (
+            <View style={styles.sheetMessage}>
+              <Text style={styles.messageText}>Couldn't load cafés. Check your connection.</Text>
+              <Pressable
+                style={({ pressed }) => [styles.retryBtn, pressed && styles.pressed]}
+                onPress={reload}
+              >
+                <Text style={styles.retryLabel}>Try Again</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <BottomSheetFlatList
+              ref={listRef}
+              data={listData}
+              keyExtractor={(cafe) => cafe.id}
+              renderItem={({ item }) => (
+                <CafeCard
+                  cafe={item}
+                  selected={item.id === selectedId}
+                  onPress={() => handleCardPress(item)}
+                />
+              )}
+              contentContainerStyle={styles.sheetList}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              ListEmptyComponent={
+                <Text style={[styles.messageText, styles.emptyText]}>
+                  No cafés match “{query.trim()}”.
+                </Text>
+              }
+              ListFooterComponent={
+                <Text style={styles.attribution}>Café data © OpenStreetMap contributors</Text>
+              }
+            />
+          )}
         </BottomSheet>
       </View>
     </View>
   );
 }
 
-function CafeCard({ cafe }) {
+function openDirections(cafe) {
+  const { latitude, longitude } = cafe.coordinate;
+  const url = Platform.select({
+    ios: `http://maps.apple.com/?daddr=${latitude},${longitude}`,
+    default: `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`,
+  });
+  Linking.openURL(url);
+}
+
+function CafeCard({ cafe, selected, onPress }) {
+  const status = getOpenStatus(cafe.hours);
+  const walkable = cafe.miles != null && cafe.miles <= WALKABLE_MILES;
+
   return (
-    <View style={[styles.card, cafe.selected && styles.cardSelected]}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.card, selected && styles.cardSelected]}
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+    >
       <View style={styles.cardRow}>
-        <Image source={{ uri: cafe.image }} style={styles.cardImage} />
+        <View style={styles.cardImage}>
+          <Ionicons name="cafe" size={34} color={Palette.primary} />
+        </View>
         <View style={styles.cardBody}>
           <View>
             <Text style={styles.cardTitle} numberOfLines={2}>
               {cafe.name}
             </Text>
+            <Text style={styles.cardTown} numberOfLines={1}>
+              {cafe.address ?? cafe.municipality}
+            </Text>
             <View style={styles.cardRating}>
-              <Ionicons name="star" size={14} color={Palette.secondary} />
+              <Ionicons
+                name={cafe.rating != null ? "star" : "star-outline"}
+                size={14}
+                color={Palette.secondary}
+              />
               <Text style={styles.cardRatingText}>
-                {cafe.rating} ({cafe.reviews} reviews)
+                {cafe.rating != null
+                  ? `${cafe.rating.toFixed(1)} (${cafe.ratingCount} ${cafe.ratingCount === 1 ? "review" : "reviews"})`
+                  : "No reviews yet"}
               </Text>
             </View>
           </View>
           <View style={styles.cardMeta}>
-            <View style={styles.cardDistance}>
-              <Ionicons name="walk-outline" size={12} color={Palette.onSurfaceVariant} />
-              <Text style={styles.cardDistanceText}>{cafe.distance}</Text>
-            </View>
-            <Text style={styles.cardHours}>{cafe.hours}</Text>
+            {cafe.miles != null ? (
+              <View style={styles.cardDistance}>
+                <Ionicons
+                  name={walkable ? "walk-outline" : "car-outline"}
+                  size={12}
+                  color={Palette.onSurfaceVariant}
+                />
+                <Text style={styles.cardDistanceText}>{formatDistance(cafe.miles)}</Text>
+              </View>
+            ) : (
+              <View />
+            )}
+            <Text style={[styles.cardHours, !status?.isOpen && styles.cardHoursMuted]}>
+              {status?.label ?? "Hours not listed"}
+            </Text>
           </View>
         </View>
       </View>
-      {cafe.selected && (
+      {selected && (
         <Pressable
           style={({ pressed }) => [styles.directionsBtn, pressed && styles.pressed]}
-          onPress={() =>
-            Alert.alert(
-              "Directions Started",
-              `Routing to ${cafe.name} · ${cafe.distance} · 8 min walk`
-            )
-          }
+          onPress={() => openDirections(cafe)}
         >
           <Ionicons name="navigate-outline" size={16} color={Palette.onPrimary} />
-          <Text style={styles.directionsLabel}>Get Directions</Text>
+          <Text style={styles.directionsLabel}>
+            Get Directions
+            {walkable ? ` · ${walkingMinutes(cafe.miles)} min walk` : ""}
+          </Text>
         </Pressable>
       )}
-    </View>
+    </Pressable>
   );
 }
 
@@ -207,30 +344,6 @@ const styles = StyleSheet.create({
   mapArea: {
     flex: 1,
     position: "relative",
-  },
-  mapBg: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#f2ede4",
-    overflow: "hidden",
-  },
-  dots: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "space-around",
-    paddingVertical: 20,
-  },
-  dotRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingHorizontal: 16,
-  },
-  dot: {
-    width: 2,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: Palette.outlineVariant,
-  },
-  pin: {
-    position: "absolute",
   },
 
   floatIcons: {
@@ -273,8 +386,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingLeft: 18,
+    paddingRight: 8,
+    paddingVertical: 8,
     borderRadius: 9999,
     overflow: "hidden",
     backgroundColor: "rgba(252,249,248,0.85)",
@@ -290,7 +404,17 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Typography.bodyMd,
     color: Palette.onSurface,
-    padding: 0,
+    paddingVertical: 4,
+  },
+  filterBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 9999,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  filterBtnActive: {
+    backgroundColor: Palette.secondary,
   },
 
   sheetBg: {
@@ -331,6 +455,37 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     gap: Spacing.sm,
   },
+  sheetMessage: {
+    alignItems: "center",
+    gap: Spacing.sm,
+    paddingTop: Spacing.lg,
+    paddingHorizontal: Spacing.marginMain,
+  },
+  messageText: {
+    ...Typography.bodyMd,
+    color: Palette.onSurfaceVariant,
+    textAlign: "center",
+  },
+  emptyText: {
+    paddingTop: Spacing.md,
+  },
+  retryBtn: {
+    backgroundColor: Palette.primary,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: 12,
+    borderRadius: Radius.full,
+  },
+  retryLabel: {
+    ...Typography.labelLg,
+    color: Palette.onPrimary,
+  },
+  attribution: {
+    ...Typography.labelMd,
+    fontSize: 11,
+    color: Palette.onSurfaceVariant,
+    textAlign: "center",
+    paddingTop: Spacing.xs,
+  },
 
   card: {
     backgroundColor: Palette.surfaceContainerLowest,
@@ -358,7 +513,9 @@ const styles = StyleSheet.create({
     width: 88,
     height: 88,
     borderRadius: 18,
-    backgroundColor: Palette.surfaceContainerHigh,
+    backgroundColor: Palette.secondaryContainer,
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardBody: {
     flex: 1,
@@ -370,6 +527,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     color: Palette.primary,
+  },
+  cardTown: {
+    ...Typography.labelMd,
+    color: Palette.onSurfaceVariant,
+    marginTop: 2,
   },
   cardRating: {
     flexDirection: "row",
@@ -400,6 +562,9 @@ const styles = StyleSheet.create({
     ...Typography.labelMd,
     fontFamily: "PlusJakartaSans_600SemiBold",
     color: Palette.secondary,
+  },
+  cardHoursMuted: {
+    color: Palette.onSurfaceVariant,
   },
 
   directionsBtn: {
