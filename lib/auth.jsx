@@ -7,7 +7,7 @@ import {
   signOut as firebaseSignOut,
   updateProfile,
 } from "firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore/lite";
 import { auth, db } from "@/FirebaseConfig";
 
 const AuthContext = createContext(null);

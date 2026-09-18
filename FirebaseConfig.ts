@@ -6,7 +6,14 @@ import {
   initializeAuth,
   type Auth,
 } from "firebase/auth";
-import { getFirestore, initializeFirestore } from "firebase/firestore";
+// The Lite SDK talks to Firestore over ordinary HTTPS requests. The full SDK's
+// streaming transport (WebChannel) cannot connect from React Native here — it
+// fails with "RPC 'Listen' stream transport errored" and the client stays
+// offline, even with experimentalForceLongPolling. Lite has no realtime
+// listeners or offline cache; the app only does one-shot reads and writes.
+// Import Firestore from "firebase/firestore/lite" everywhere: mixing the two
+// SDKs in one app is not supported.
+import { getFirestore } from "firebase/firestore/lite";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Values come from .env.local (see .env.example). Expo only inlines EXPO_PUBLIC_*
@@ -44,18 +51,4 @@ function createAuth(): Auth {
 }
 
 export const auth = createAuth();
-
-function createFirestore() {
-  if (Platform.OS === "web") return getFirestore(app);
-  try {
-    // Firestore's default streaming transport frequently fails on React Native
-    // ("WebChannelConnection RPC 'Listen' stream transport errored"), leaving the
-    // client stuck offline. Long-polling is the transport that works there.
-    return initializeFirestore(app, { experimentalForceLongPolling: true });
-  } catch {
-    // Already initialized (Fast Refresh).
-    return getFirestore(app);
-  }
-}
-
-export const db = createFirestore();
+export const db = getFirestore(app);
