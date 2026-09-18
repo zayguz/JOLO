@@ -46,7 +46,11 @@ export function AuthProvider({ children }) {
         // Don't block sign-in on this; a failed write is retried next launch.
         if (nextUser) {
           const { uid, email, displayName } = nextUser;
-          ensureUserProfile({ uid, email, displayName }).catch(() => {});
+          ensureUserProfile({ uid, email, displayName }).catch((error) => {
+            // Not fatal: retried on the next launch. Logged so a failing write
+            // is diagnosable instead of silently missing.
+            console.warn(`[jolo] profile sync failed: ${error?.code ?? "unknown"} — ${error?.message}`);
+          });
         }
       }),
     []
@@ -62,7 +66,9 @@ export function AuthProvider({ children }) {
         const displayName = name.trim();
         await updateProfile(created, { displayName });
         await ensureUserProfile({ uid: created.uid, email: created.email, displayName }).catch(
-          () => {}
+          (error) => {
+            console.warn(`[jolo] profile create failed: ${error?.code ?? "unknown"} — ${error?.message}`);
+          }
         );
       },
       signOut: () => firebaseSignOut(auth),
