@@ -1,23 +1,36 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useAuth } from "@/lib/auth";
+import { authErrorMessage } from "@/lib/auth-errors";
 
 export default function LoginView() {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (!email || !password) {
-      setShowError(true);
+      setError("Enter your email and password to sign in.");
       return;
     }
-    router.replace("/main");
+    setBusy(true);
+    setError(null);
+    try {
+      await signIn(email, password);
+      // The root layout swaps to the main tabs once the session exists.
+    } catch (caught) {
+      setError(authErrorMessage(caught));
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -36,7 +49,7 @@ export default function LoginView() {
         <BlurView intensity={30} tint="light" style={styles.card}>
           <View style={styles.field}>
             <Text style={styles.fieldLabel}>Email</Text>
-            <View style={[styles.inputWrap, showError && !email && styles.inputWrapError]}>
+            <View style={[styles.inputWrap, error && !email && styles.inputWrapError]}>
               <Ionicons name="mail-outline" size={16} color={Palette.onSurfaceVariant} />
               <TextInput
                 style={styles.input}
@@ -53,7 +66,7 @@ export default function LoginView() {
           </View>
           <View style={styles.field}>
             <Text style={styles.fieldLabel}>Password</Text>
-            <View style={[styles.inputWrap, showError && !password && styles.inputWrapError]}>
+            <View style={[styles.inputWrap, error && !password && styles.inputWrapError]}>
               <Ionicons name="lock-closed-outline" size={16} color={Palette.onSurfaceVariant} />
               <TextInput
                 style={styles.input}
@@ -68,23 +81,29 @@ export default function LoginView() {
             </View>
           </View>
 
-          {showError && (
+          {error && (
             <View style={styles.errorBanner}>
               <Ionicons name="alert-circle-outline" size={16} color="#410002" />
-              <Text style={styles.errorText}>Enter your email and password to sign in.</Text>
+              <Text style={styles.errorText}>{error}</Text>
             </View>
           )}
 
           <Pressable
-            style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed]}
+            style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
             onPress={handleSignIn}
+            disabled={busy}
           >
-            <Text style={styles.primaryBtnLabel}>Sign In with Email</Text>
+            {busy ? (
+              <ActivityIndicator color={Palette.onPrimary} />
+            ) : (
+              <Text style={styles.primaryBtnLabel}>Sign In with Email</Text>
+            )}
           </Pressable>
 
           <Pressable
             style={({ pressed }) => [styles.outlineBtn, pressed && styles.pressed]}
             onPress={() => router.push("/register")}
+            disabled={busy}
           >
             <Text style={styles.outlineBtnLabel}>Create New Account</Text>
           </Pressable>
@@ -218,6 +237,9 @@ const styles = StyleSheet.create({
   primaryBtnLabel: {
     ...Typography.labelLg,
     color: Palette.onPrimary,
+  },
+  btnBusy: {
+    opacity: 0.7,
   },
   outlineBtn: {
     paddingVertical: 14,

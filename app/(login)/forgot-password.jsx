@@ -1,14 +1,41 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useAuth } from "@/lib/auth";
+import { authErrorMessage } from "@/lib/auth-errors";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ForgotPasswordScreen() {
+  const { resetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  const handleSend = async () => {
+    if (!EMAIL_PATTERN.test(email.trim())) {
+      setError("Enter a valid email address.");
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      await resetPassword(email);
+      setSent(true);
+    } catch (caught) {
+      // Firebase hides whether an address is registered; treat that as sent
+      // rather than confirming which emails have accounts.
+      if (caught?.code === "auth/user-not-found") setSent(true);
+      else setError(authErrorMessage(caught));
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.root} edges={["top", "bottom"]}>
@@ -41,21 +68,37 @@ export default function ForgotPasswordScreen() {
             placeholderTextColor="rgba(79,68,66,0.5)"
             keyboardType="email-address"
             autoCapitalize="none"
+            textContentType="emailAddress"
+            autoComplete="email"
           />
         </View>
 
         {sent && (
           <View style={styles.successBanner}>
             <Ionicons name="checkmark-circle" size={18} color={Palette.secondary} />
-            <Text style={styles.successText}>Reset link sent. Check your inbox.</Text>
+            <Text style={styles.successText}>
+              If an account exists for that email, a reset link is on its way.
+            </Text>
+          </View>
+        )}
+
+        {error && (
+          <View style={styles.errorBanner}>
+            <Ionicons name="alert-circle-outline" size={16} color="#410002" />
+            <Text style={styles.errorText}>{error}</Text>
           </View>
         )}
 
         <Pressable
-          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed]}
-          onPress={() => setSent(true)}
+          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
+          onPress={handleSend}
+          disabled={busy}
         >
-          <Text style={styles.primaryBtnLabel}>Send Reset Link</Text>
+          {busy ? (
+            <ActivityIndicator color={Palette.onPrimary} />
+          ) : (
+            <Text style={styles.primaryBtnLabel}>Send Reset Link</Text>
+          )}
         </Pressable>
 
         <Pressable style={styles.footerRow} onPress={() => router.back()} hitSlop={8}>
@@ -136,6 +179,25 @@ const styles = StyleSheet.create({
     ...Typography.labelMd,
     color: Palette.onSecondaryContainer,
     flexShrink: 1,
+  },
+
+  errorBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: Spacing.sm,
+    backgroundColor: Palette.errorContainer,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: Radius.md,
+  },
+  errorText: {
+    ...Typography.labelMd,
+    color: "#410002",
+    flexShrink: 1,
+  },
+  btnBusy: {
+    opacity: 0.7,
   },
 
   primaryBtn: {

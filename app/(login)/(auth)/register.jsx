@@ -1,27 +1,62 @@
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useAuth } from "@/lib/auth";
+import { authErrorMessage } from "@/lib/auth-errors";
+
+const MIN_PASSWORD_LENGTH = 8;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function RegisterView() {
+  const { signUp } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [touched, setTouched] = useState(false);
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
 
+  const badEmail = touched && email.trim() !== "" && !EMAIL_PATTERN.test(email.trim());
+  const shortPassword = touched && password !== "" && password.length < MIN_PASSWORD_LENGTH;
   const mismatch = touched && password && confirmPassword && password !== confirmPassword;
   const missing = (value) => touched && !value;
 
-  const handleSignUp = () => {
-    if (!name || !email || !password || !confirmPassword || password !== confirmPassword) {
-      setTouched(true);
+  const handleSignUp = async () => {
+    setTouched(true);
+    setError(null);
+    if (
+      !name.trim() ||
+      !EMAIL_PATTERN.test(email.trim()) ||
+      password.length < MIN_PASSWORD_LENGTH ||
+      password !== confirmPassword
+    ) {
       return;
     }
-    router.replace("/main");
+
+    setBusy(true);
+    try {
+      await signUp(name, email, password);
+      // Signing up signs the user in, and the root layout shows the main tabs.
+    } catch (caught) {
+      setError(authErrorMessage(caught));
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -35,11 +70,15 @@ export default function RegisterView() {
         </Pressable>
       </View>
 
-      <ScrollView
-        contentContainerStyle={styles.scroll}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
+        <ScrollView
+          contentContainerStyle={styles.scroll}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
         <Text style={styles.title}>Create Account</Text>
         <Text style={styles.subtitle}>Join JOLO to discover cafés and share what you're drinking</Text>
 
@@ -60,7 +99,7 @@ export default function RegisterView() {
             autoCapitalize="none"
             textContentType="emailAddress"
             autoComplete="email"
-            error={missing(email)}
+            error={missing(email) || badEmail}
           />
           <Field
             label="Password"
@@ -70,7 +109,7 @@ export default function RegisterView() {
             secureTextEntry
             textContentType="newPassword"
             autoComplete="password-new"
-            error={missing(password)}
+            error={missing(password) || shortPassword}
           />
           <View>
             <Field
@@ -85,22 +124,41 @@ export default function RegisterView() {
             />
             {mismatch && <Text style={styles.fieldError}>Passwords don't match.</Text>}
           </View>
+          {badEmail && <Text style={styles.fieldError}>Enter a valid email address.</Text>}
+          {shortPassword && (
+            <Text style={styles.fieldError}>
+              Passwords need to be at least {MIN_PASSWORD_LENGTH} characters.
+            </Text>
+          )}
         </View>
 
+        {error && (
+          <View style={styles.errorBanner}>
+            <Ionicons name="alert-circle-outline" size={16} color="#410002" />
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        )}
+
         <Pressable
-          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed]}
+          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
           onPress={handleSignUp}
+          disabled={busy}
         >
-          <Text style={styles.primaryBtnLabel}>Sign Up</Text>
+          {busy ? (
+            <ActivityIndicator color={Palette.onPrimary} />
+          ) : (
+            <Text style={styles.primaryBtnLabel}>Sign Up</Text>
+          )}
         </Pressable>
 
         <View style={styles.footerRow}>
           <Text style={styles.footerText}>Already have an account? </Text>
-          <Pressable onPress={() => router.back()} hitSlop={8}>
+          <Pressable onPress={() => router.back()} hitSlop={8} disabled={busy}>
             <Text style={styles.footerLink}>Sign In</Text>
           </Pressable>
         </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -120,6 +178,25 @@ function Field({ label, error, ...inputProps }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Palette.background },
+  flex: { flex: 1 },
+  errorBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: Spacing.sm,
+    backgroundColor: Palette.errorContainer,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: Radius.md,
+  },
+  errorText: {
+    ...Typography.labelMd,
+    color: "#410002",
+    flexShrink: 1,
+  },
+  btnBusy: {
+    opacity: 0.7,
+  },
   header: {
     paddingHorizontal: Spacing.marginMain,
     paddingTop: 8,

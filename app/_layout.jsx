@@ -17,6 +17,7 @@ import {
   PlusJakartaSans_600SemiBold,
 } from "@expo-google-fonts/plus-jakarta-sans";
 import { Palette } from "@/constants/Colors";
+import { AuthProvider, useAuth } from "@/lib/auth";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,23 +43,43 @@ export default function RootLayout() {
     PlusJakartaSans_600SemiBold,
   });
 
-  useEffect(() => {
-    if (fontsLoaded) SplashScreen.hideAsync();
-  }, [fontsLoaded]);
-
   if (!fontsLoaded) return null;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <RNEThemeProvider theme={theme}>
-          <Stack screenOptions={{ contentStyle: { backgroundColor: Palette.background } }}>
-            <Stack.Screen name="(login)" options={{ headerShown: false }} />
-            <Stack.Screen name="main" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <AuthProvider>
+            <RootNavigator />
+          </AuthProvider>
         </RNEThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
+  );
+}
+
+function RootNavigator() {
+  const { user, initializing } = useAuth();
+
+  useEffect(() => {
+    // Hold the splash screen until we know whether a session was restored,
+    // so the login screen never flashes for a signed-in user.
+    if (!initializing) SplashScreen.hideAsync();
+  }, [initializing]);
+
+  if (initializing) return null;
+
+  return (
+    <Stack screenOptions={{ contentStyle: { backgroundColor: Palette.background } }}>
+      {/* The router keeps each group unreachable in the wrong state, so /main
+          can't be opened by deep link while signed out. */}
+      <Stack.Protected guard={!user}>
+        <Stack.Screen name="(login)" options={{ headerShown: false }} />
+      </Stack.Protected>
+      <Stack.Protected guard={!!user}>
+        <Stack.Screen name="main" options={{ headerShown: false }} />
+      </Stack.Protected>
+      <Stack.Screen name="+not-found" />
+    </Stack>
   );
 }

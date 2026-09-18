@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useAuth } from "@/lib/auth";
 
 export default function ProfileView() {
+  const { user, signOut } = useAuth();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     setConfirmOpen(false);
-    router.replace("/");
+    // The root layout returns to the login screens once the session clears.
+    await signOut();
   };
 
   return (
@@ -30,11 +32,11 @@ export default function ProfileView() {
               <Ionicons name="pencil" size={14} color={Palette.onPrimary} />
             </Pressable>
           </View>
-          <Text style={styles.idName}>Jordan Lee</Text>
-          <Text style={styles.idEmail}>jordan@example.com</Text>
+          <Text style={styles.idName}>{user?.displayName ?? "JOLO member"}</Text>
+          <Text style={styles.idEmail}>{user?.email ?? ""}</Text>
           <View style={styles.statPill}>
             <Ionicons name="location" size={14} color={Palette.onSecondaryContainer} />
-            <Text style={styles.statPillText}>18 posts · 12 cafés visited</Text>
+            <Text style={styles.statPillText}>0 posts · 0 cafés visited</Text>
           </View>
         </View>
 
