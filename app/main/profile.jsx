@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
 import { useAuth } from "@/lib/auth";
+import { usePosts } from "@/hooks/usePosts";
 
 export default function ProfileView() {
   const { user, signOut } = useAuth();
+  const { posts } = usePosts();
   const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const { postCount, cafesVisitedCount } = useMemo(() => {
+    const myPosts = posts.filter((post) => post.authorId === user?.uid);
+    return {
+      postCount: myPosts.length,
+      cafesVisitedCount: new Set(myPosts.map((post) => post.cafeId)).size,
+    };
+  }, [posts, user]);
 
   const handleSignOut = async () => {
     setConfirmOpen(false);
@@ -36,7 +47,10 @@ export default function ProfileView() {
           <Text style={styles.idEmail}>{user?.email ?? ""}</Text>
           <View style={styles.statPill}>
             <Ionicons name="location" size={14} color={Palette.onSecondaryContainer} />
-            <Text style={styles.statPillText}>0 posts · 0 cafés visited</Text>
+            <Text style={styles.statPillText}>
+              {postCount} {postCount === 1 ? "post" : "posts"} · {cafesVisitedCount}{" "}
+              {cafesVisitedCount === 1 ? "café" : "cafés"} visited
+            </Text>
           </View>
         </View>
 
@@ -46,8 +60,18 @@ export default function ProfileView() {
         </Group>
 
         <Group title="Activity">
-          <Row icon="list-outline" label="Your Posts" />
-          <Row icon="location-outline" label="Saved Cafés" />
+          <Row
+            icon="list-outline"
+            label="Your Posts"
+            value={String(postCount)}
+            onPress={() => router.push({ pathname: "/main/favorites", params: { tab: "creations" } })}
+          />
+          <Row
+            icon="location-outline"
+            label="Saved Cafés"
+            last
+            onPress={() => router.push({ pathname: "/main/favorites", params: { tab: "cafes" } })}
+          />
         </Group>
 
         <Group title="Support">
@@ -102,9 +126,12 @@ function Group({ title, children }) {
   );
 }
 
-function Row({ icon, label, value, last }) {
+function Row({ icon, label, value, last, onPress }) {
   return (
-    <Pressable style={({ pressed }) => [styles.row, !last && styles.rowBorder, pressed && styles.rowPressed]}>
+    <Pressable
+      style={({ pressed }) => [styles.row, !last && styles.rowBorder, pressed && styles.rowPressed]}
+      onPress={onPress}
+    >
       <View style={styles.rowIcon}>
         <Ionicons name={icon} size={18} color={Palette.primary} />
       </View>

@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  Image,
+  ActivityIndicator,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,104 +14,102 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
+import { useAuth } from "@/lib/auth";
+import { useCafes } from "@/hooks/useCafes";
+import { usePosts } from "@/hooks/usePosts";
 
-const TRENDING = [
-  {
-    id: "vanilla-latte",
-    name: "Vanilla Latte",
-    location: "Aroma & Crema - Downtown",
-    rating: "4.9",
-    count: 38,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCIn7oOUk1og68BC59qoGwxkiWY2y1Krrc3S7anbSm1-S1th988pZpKp-13DGo_1qw_sztEfH_30nm8TifVFGgQbo2HB9xDt9-1Ux4oUVeOoLoLc-O4qtci5z1TIrXzWrPEIJS4A7EWeTXslzv3BCMp28ZQhjkR6TrCKTCIlX1sdEr_0WV66B88kEwu6Y4M7n8EmZN-TpoPjvDmCETTMpsImqyIZVa9LZ_vgLQc1uNZ5FDj_D6h9v8noY4SPFG2lNr8rA-ctmAHkFk",
-  },
-  {
-    id: "cortado",
-    name: "Oat Milk Cortado",
-    location: "Bean & Leaf - Westside",
-    rating: "4.8",
-    count: 26,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDkLmP71pBZPPbPDZ7Gr7pPTdEMP9UFF5Lj_jt1VCGBfg42ljIW-BZxmgY-DNsLvULfhiP0sFici97Lk1rSwZ0cd6mqScxHPyEUIl2FRe8Uy3mZy0LGphdgPIJnp3qjXkby7m79F8oW5rV25hQvKUBpIBrqAMFzaKq7j3FPfN0_YhEVqn2eKtzFjK3KHnu8fMhtIAAcDX5cKLGN1vn66kxBGOo-JQkZLWaZ_ywgsQ-q50ASIWKAubyslXffiAA_86O5kiBa53e-WZc",
-  },
-  {
-    id: "cold-brew",
-    name: "Caramel Cold Brew",
-    location: "The Roastery Lab",
-    rating: "4.7",
-    count: 19,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAnr5cxvOxU61XNamNND_KWjJt-EePhiSZjwmRYRmYpmfH7UcioekNPv39g_pmoOHW4eeqEQz57_QnXA_Uz1fPK-g3OtrKzdrkMiSVF02PlglTEP3ZHzQk8CuRBHoHs_nuHwipD5NP5UaJavtJl6PbEFW4NwHjlhGznNpj_eK4YsGqr1Pu5sBLbxNPJJSVbSmWQzBzQVcWeUlaaq3QXYKbwHjapVd1fuFpGidWALw_7I5NRNyuQe1BSf6oTXK-f8aAkBSEwu6RclPc",
-  },
-];
+const MAX_CAFE_SUGGESTIONS = 6;
+const MAX_TRENDING = 3;
 
-const INITIAL_POSTS = [
-  {
-    id: "p1",
-    user: "Priya S.",
-    drink: "Oat Milk Cortado",
-    rating: 5,
-    comment: "Best cortado in the city, no contest. The oat milk here is perfectly steamed.",
-    location: "Bean & Leaf - Westside",
-    time: "12 min ago",
-  },
-  {
-    id: "p2",
-    user: "Marcus T.",
-    drink: "Vanilla Latte",
-    rating: 4,
-    comment: "Solid go-to pick. A little sweet for me but great texture.",
-    location: "Aroma & Crema - Downtown",
-    time: "48 min ago",
-  },
-  {
-    id: "p3",
-    user: "Elena R.",
-    drink: "Caramel Cold Brew",
-    rating: 5,
-    comment: "Perfect for a hot afternoon. Will be back for this one all summer.",
-    location: "The Roastery Lab",
-    time: "2h ago",
-  },
-];
+function formatRelativeTime(date) {
+  const minutes = Math.max(0, Math.round((Date.now() - date.getTime()) / 60000));
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.round(hours / 24);
+  return `${days}d ago`;
+}
 
-const DRINKS = ["Latte", "Cappuccino", "Cold Brew", "Matcha"];
+// Groups posts by drink name (case-insensitive) and ranks by how many people
+// posted it, so "trending" reflects what this community is actually drinking.
+function trendingDrinks(posts) {
+  const groups = new Map();
+  for (const post of posts) {
+    const key = post.drink.trim().toLowerCase();
+    if (!groups.has(key)) {
+      groups.set(key, { name: post.drink.trim(), cafeName: post.cafeName, count: 0, ratingSum: 0 });
+    }
+    const group = groups.get(key);
+    group.count += 1;
+    group.ratingSum += post.rating;
+  }
+  return [...groups.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, MAX_TRENDING)
+    .map((group) => ({ ...group, avgRating: group.ratingSum / group.count }));
+}
 
 export default function SocialView() {
+  const { user } = useAuth();
+  const { cafes } = useCafes();
+  const { posts, loading, error, createPost } = usePosts();
+
   const sheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["68%"], []);
+  const snapPoints = useMemo(() => ["75%"], []);
   const [notifOpen, setNotifOpen] = useState(false);
-  const [posts, setPosts] = useState(INITIAL_POSTS);
-  const [draftDrink, setDraftDrink] = useState(null);
+  const [cafeQuery, setCafeQuery] = useState("");
+  const [draftCafe, setDraftCafe] = useState(null);
+  const [draftDrink, setDraftDrink] = useState("");
   const [draftRating, setDraftRating] = useState(0);
   const [draftComment, setDraftComment] = useState("");
   const [touched, setTouched] = useState(false);
+  const [posting, setPosting] = useState(false);
+
+  const trending = useMemo(() => trendingDrinks(posts), [posts]);
+
+  const cafeSuggestions = useMemo(() => {
+    const needle = cafeQuery.trim().toLowerCase();
+    if (!needle) return [];
+    return cafes.filter((cafe) => cafe.name.toLowerCase().includes(needle)).slice(0, MAX_CAFE_SUGGESTIONS);
+  }, [cafes, cafeQuery]);
 
   const openComposer = () => sheetRef.current?.expand();
   const closeComposer = () => sheetRef.current?.close();
 
-  const submitPost = () => {
-    if (!draftDrink || draftRating === 0) {
-      setTouched(true);
-      return;
-    }
-    setPosts((prev) => [
-      {
-        id: `p${Date.now()}`,
-        user: "You",
-        drink: draftDrink,
-        rating: draftRating,
-        comment: draftComment || "Loved it!",
-        location: "Aroma & Crema - Downtown",
-        time: "Just now",
-      },
-      ...prev,
-    ]);
-    setDraftDrink(null);
+  const resetDraft = () => {
+    setDraftCafe(null);
+    setCafeQuery("");
+    setDraftDrink("");
     setDraftRating(0);
     setDraftComment("");
     setTouched(false);
-    closeComposer();
+  };
+
+  const submitPost = async () => {
+    if (!draftCafe || !draftDrink.trim() || draftRating === 0) {
+      setTouched(true);
+      return;
+    }
+    setPosting(true);
+    try {
+      await createPost({
+        authorId: user.uid,
+        authorName: user.displayName ?? "JOLO member",
+        cafeId: draftCafe.id,
+        cafeName: draftCafe.name,
+        drink: draftDrink.trim(),
+        rating: draftRating,
+        comment: draftComment.trim(),
+      });
+      resetDraft();
+      closeComposer();
+    } catch {
+      // Left as a draft the user can retry; posting is rare enough that a
+      // silent retry-on-close isn't worth building yet.
+    } finally {
+      setPosting(false);
+    }
   };
 
   return (
@@ -127,7 +125,6 @@ export default function SocialView() {
             onPress={() => setNotifOpen((v) => !v)}
           >
             <Ionicons name="notifications-outline" size={22} color={Palette.primary} />
-            <View style={styles.badgeDot} />
           </Pressable>
         </View>
         <NotificationsPanel
@@ -137,73 +134,92 @@ export default function SocialView() {
         />
       </SafeAreaView>
 
-      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={styles.sectionTitle}>Trending Drinks</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.trendingRow}
-        >
-          {TRENDING.map((item) => (
-            <View key={item.id} style={styles.trendCard}>
-              <Image source={{ uri: item.image }} style={styles.trendImage} />
-              <Text style={styles.trendName} numberOfLines={2}>
-                {item.name}
-              </Text>
-              <View style={styles.trendLoc}>
-                <Ionicons name="location-outline" size={11} color={Palette.onSurfaceVariant} />
-                <Text style={styles.trendLocText} numberOfLines={1}>
-                  {item.location}
-                </Text>
-              </View>
-              <View style={styles.trendRating}>
-                <Ionicons name="star" size={12} color={Palette.secondary} />
-                <Text style={styles.trendRatingText}>
-                  {item.rating} · {item.count} posts
-                </Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
-
-        <Text style={styles.sectionTitle}>Community Feed</Text>
-        <View style={styles.feedList}>
-          {posts.map((post) => (
-            <View key={post.id} style={styles.postCard}>
-              <View style={styles.postHead}>
-                <View style={styles.postAvatar}>
-                  <Ionicons name="person" size={16} color={Palette.primary} />
-                </View>
-                <View>
-                  <Text style={styles.postUser}>{post.user}</Text>
-                  <Text style={styles.postTime}>{post.time}</Text>
-                </View>
-              </View>
-              <View style={styles.postDrinkRow}>
-                <View style={styles.postDrink}>
-                  <Ionicons name="cafe" size={12} color={Palette.onSecondaryContainer} />
-                  <Text style={styles.postDrinkText}>{post.drink}</Text>
-                </View>
-                <View style={styles.postStars}>
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <Ionicons
-                      key={n}
-                      name="star"
-                      size={13}
-                      color={n <= post.rating ? Palette.secondary : Palette.surfaceContainerHigh}
-                    />
-                  ))}
-                </View>
-              </View>
-              <Text style={styles.postComment}>{post.comment}</Text>
-              <View style={styles.postLoc}>
-                <Ionicons name="location-outline" size={11} color={Palette.onSurfaceVariant} />
-                <Text style={styles.postLocText}>{post.location}</Text>
-              </View>
-            </View>
-          ))}
+      {loading ? (
+        <View style={styles.centerMessage}>
+          <ActivityIndicator color={Palette.secondary} />
         </View>
-      </ScrollView>
+      ) : error ? (
+        <View style={styles.centerMessage}>
+          <Text style={styles.messageText}>Couldn't load the feed. Check your connection.</Text>
+        </View>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+          {trending.length > 0 && (
+            <>
+              <Text style={styles.sectionTitle}>Trending Drinks</Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.trendingRow}
+              >
+                {trending.map((item) => (
+                  <View key={item.name} style={styles.trendCard}>
+                    <View style={styles.trendIcon}>
+                      <Ionicons name="cafe" size={28} color={Palette.primary} />
+                    </View>
+                    <Text style={styles.trendName} numberOfLines={2}>
+                      {item.name}
+                    </Text>
+                    <View style={styles.trendRating}>
+                      <Ionicons name="star" size={12} color={Palette.secondary} />
+                      <Text style={styles.trendRatingText}>
+                        {item.avgRating.toFixed(1)} · {item.count} {item.count === 1 ? "post" : "posts"}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
+            </>
+          )}
+
+          <Text style={styles.sectionTitle}>Community Feed</Text>
+          {posts.length === 0 ? (
+            <View style={styles.emptyFeed}>
+              <Ionicons name="cafe-outline" size={28} color={Palette.onSurfaceVariant} />
+              <Text style={styles.emptyFeedText}>
+                No posts yet. Be the first to share what you're drinking.
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.feedList}>
+              {posts.map((post) => (
+                <View key={post.id} style={styles.postCard}>
+                  <View style={styles.postHead}>
+                    <View style={styles.postAvatar}>
+                      <Ionicons name="person" size={16} color={Palette.primary} />
+                    </View>
+                    <View>
+                      <Text style={styles.postUser}>{post.authorName}</Text>
+                      <Text style={styles.postTime}>{formatRelativeTime(post.createdAt)}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.postDrinkRow}>
+                    <View style={styles.postDrink}>
+                      <Ionicons name="cafe" size={12} color={Palette.onSecondaryContainer} />
+                      <Text style={styles.postDrinkText}>{post.drink}</Text>
+                    </View>
+                    <View style={styles.postStars}>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <Ionicons
+                          key={n}
+                          name="star"
+                          size={13}
+                          color={n <= post.rating ? Palette.secondary : Palette.surfaceContainerHigh}
+                        />
+                      ))}
+                    </View>
+                  </View>
+                  {post.comment ? <Text style={styles.postComment}>{post.comment}</Text> : null}
+                  <View style={styles.postLoc}>
+                    <Ionicons name="location-outline" size={11} color={Palette.onSurfaceVariant} />
+                    <Text style={styles.postLocText}>{post.cafeName}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+        </ScrollView>
+      )}
 
       <Pressable style={({ pressed }) => [styles.fab, pressed && styles.pressed]} onPress={openComposer}>
         <Ionicons name="add" size={26} color={Palette.onPrimary} />
@@ -217,6 +233,7 @@ export default function SocialView() {
         backgroundStyle={styles.sheetBg}
         handleStyle={styles.sheetHandleArea}
         handleIndicatorStyle={styles.handle}
+        keyboardBehavior="extend"
       >
         <BottomSheetScrollView
           contentContainerStyle={styles.composerScroll}
@@ -230,21 +247,13 @@ export default function SocialView() {
           </View>
 
           <Text style={styles.fieldLabel}>Drink</Text>
-          <View style={styles.chipRow}>
-            {DRINKS.map((d) => (
-              <Pressable
-                key={d}
-                onPress={() => setDraftDrink(d)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  draftDrink === d && styles.chipActive,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={[styles.chipLabel, draftDrink === d && styles.chipLabelActive]}>{d}</Text>
-              </Pressable>
-            ))}
-          </View>
+          <TextInput
+            style={styles.fieldInput}
+            placeholder="e.g. Oat Milk Cortado"
+            placeholderTextColor="rgba(79,68,66,0.5)"
+            value={draftDrink}
+            onChangeText={setDraftDrink}
+          />
 
           <Text style={styles.fieldLabel}>Your Rating</Text>
           <View style={styles.starRow}>
@@ -269,21 +278,57 @@ export default function SocialView() {
             multiline
           />
 
-          <Text style={styles.fieldLabel}>Posting From</Text>
-          <View style={styles.locationChip}>
-            <Ionicons name="location-outline" size={13} color={Palette.onSurfaceVariant} />
-            <Text style={styles.locationChipText}>Aroma & Crema - Downtown</Text>
-          </View>
+          <Text style={styles.fieldLabel}>Café</Text>
+          {draftCafe ? (
+            <View style={styles.locationChip}>
+              <Ionicons name="location-outline" size={13} color={Palette.onSurfaceVariant} />
+              <Text style={styles.locationChipText}>{draftCafe.name}</Text>
+              <Pressable onPress={() => setDraftCafe(null)} hitSlop={8}>
+                <Ionicons name="close" size={14} color={Palette.onSurfaceVariant} />
+              </Pressable>
+            </View>
+          ) : (
+            <>
+              <TextInput
+                style={styles.fieldInput}
+                placeholder="Search cafés"
+                placeholderTextColor="rgba(79,68,66,0.5)"
+                value={cafeQuery}
+                onChangeText={setCafeQuery}
+              />
+              {cafeSuggestions.length > 0 && (
+                <View style={styles.chipRow}>
+                  {cafeSuggestions.map((cafe) => (
+                    <Pressable
+                      key={cafe.id}
+                      onPress={() => {
+                        setDraftCafe(cafe);
+                        setCafeQuery("");
+                      }}
+                      style={({ pressed }) => [styles.chip, pressed && styles.pressed]}
+                    >
+                      <Text style={styles.chipLabel}>{cafe.name}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              )}
+            </>
+          )}
 
-          {touched && (!draftDrink || draftRating === 0) && (
-            <Text style={styles.hint}>Pick a drink and a rating before posting.</Text>
+          {touched && (!draftCafe || !draftDrink.trim() || draftRating === 0) && (
+            <Text style={styles.hint}>Pick a café, a drink, and a rating before posting.</Text>
           )}
 
           <Pressable
-            style={({ pressed }) => [styles.postBtn, pressed && styles.pressed]}
+            style={({ pressed }) => [styles.postBtn, pressed && styles.pressed, posting && styles.btnBusy]}
             onPress={submitPost}
+            disabled={posting}
           >
-            <Text style={styles.postBtnLabel}>Post to Feed</Text>
+            {posting ? (
+              <ActivityIndicator color={Palette.onPrimary} />
+            ) : (
+              <Text style={styles.postBtnLabel}>Post to Feed</Text>
+            )}
           </Pressable>
         </BottomSheetScrollView>
       </BottomSheet>
@@ -323,16 +368,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  badgeDot: {
-    position: "absolute",
-    top: 6,
-    right: 7,
-    width: 8,
-    height: 8,
-    borderRadius: 9999,
-    backgroundColor: Palette.error,
-    borderWidth: 2,
-    borderColor: Palette.background,
+
+  centerMessage: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: Spacing.marginMain,
+  },
+  messageText: {
+    ...Typography.bodyMd,
+    color: Palette.onSurfaceVariant,
+    textAlign: "center",
   },
 
   scroll: {
@@ -352,18 +398,20 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   trendCard: {
-    width: 168,
+    width: 140,
     backgroundColor: Palette.surfaceContainerLowest,
     borderRadius: Radius.lg,
     padding: 12,
     borderWidth: 1,
     borderColor: "rgba(211,195,192,0.4)",
   },
-  trendImage: {
+  trendIcon: {
     width: "100%",
-    height: 96,
+    height: 64,
     borderRadius: Radius.md,
-    backgroundColor: Palette.surfaceContainerHigh,
+    backgroundColor: Palette.secondaryContainer,
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 8,
   },
   trendName: {
@@ -371,18 +419,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 18,
     color: Palette.onSurface,
-  },
-  trendLoc: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    marginTop: 5,
-  },
-  trendLocText: {
-    ...Typography.labelMd,
-    fontSize: 11,
-    color: Palette.onSurfaceVariant,
-    flexShrink: 1,
   },
   trendRating: {
     flexDirection: "row",
@@ -395,6 +431,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "PlusJakartaSans_600SemiBold",
     color: Palette.secondary,
+  },
+
+  emptyFeed: {
+    alignItems: "center",
+    gap: 10,
+    paddingVertical: 32,
+    paddingHorizontal: 16,
+    backgroundColor: Palette.surfaceContainerLowest,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "rgba(211,195,192,0.6)",
+  },
+  emptyFeedText: {
+    ...Typography.bodySm,
+    color: Palette.onSurfaceVariant,
+    textAlign: "center",
+    maxWidth: 240,
   },
 
   feedList: {
@@ -530,10 +584,22 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 18,
   },
+  fieldInput: {
+    ...Typography.bodyMd,
+    fontSize: 14,
+    color: Palette.onSurface,
+    backgroundColor: Palette.surfaceContainerLowest,
+    borderWidth: 1,
+    borderColor: "rgba(211,195,192,0.6)",
+    borderRadius: Radius.md,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
   chipRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
+    marginTop: 10,
   },
   chip: {
     paddingHorizontal: 15,
@@ -543,16 +609,9 @@ const styles = StyleSheet.create({
     borderColor: "rgba(211,195,192,0.6)",
     backgroundColor: Palette.surfaceContainerLowest,
   },
-  chipActive: {
-    backgroundColor: Palette.primary,
-    borderColor: Palette.primary,
-  },
   chipLabel: {
     ...Typography.labelMd,
     color: Palette.onSurface,
-  },
-  chipLabelActive: {
-    color: Palette.onPrimary,
   },
   starRow: {
     flexDirection: "row",
@@ -590,6 +649,9 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: Palette.error,
     marginTop: 8,
+  },
+  btnBusy: {
+    opacity: 0.7,
   },
   postBtn: {
     marginTop: 22,
