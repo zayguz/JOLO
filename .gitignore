@@ -37,7 +37,9 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
+# local env files (the app reads .env, .env.local, or .env.*.local — ignore all of them)
+.env
+.env.local
 .env*.local
 
 # typescript
