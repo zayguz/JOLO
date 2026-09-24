@@ -20,6 +20,7 @@ import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
 import { useCafes } from "@/hooks/useCafes";
+import { useFavoriteCafes } from "@/hooks/useFavoriteCafes";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import {
   UNION_COUNTY_REGION,
@@ -50,6 +51,7 @@ export default function FinderView() {
   const listRef = useRef(null);
 
   const { cafes, loading, error, reload } = useCafes();
+  const { favoriteIds, toggleFavorite } = useFavoriteCafes();
   const { coords } = useUserLocation();
   const nearby = coords != null && isInServiceArea(coords);
 
@@ -178,7 +180,6 @@ export default function FinderView() {
             aria-label="Notifications"
           >
             <Ionicons name="notifications-outline" size={20} color={Palette.primary} />
-            <View style={styles.badgeDot} />
           </Pressable>
         </View>
 
@@ -234,6 +235,8 @@ export default function FinderView() {
                   cafe={item}
                   selected={item.id === selectedId}
                   onPress={() => handleCardPress(item)}
+                  isFavorite={favoriteIds.has(item.id)}
+                  onToggleFavorite={() => toggleFavorite(item.id)}
                 />
               )}
               contentContainerStyle={styles.sheetList}
@@ -264,7 +267,7 @@ function openDirections(cafe) {
   Linking.openURL(url);
 }
 
-function CafeCard({ cafe, selected, onPress }) {
+function CafeCard({ cafe, selected, onPress, isFavorite, onToggleFavorite }) {
   const status = getOpenStatus(cafe.hours);
   const walkable = cafe.miles != null && cafe.miles <= WALKABLE_MILES;
 
@@ -278,6 +281,19 @@ function CafeCard({ cafe, selected, onPress }) {
       <View style={styles.cardRow}>
         <View style={styles.cardImage}>
           <Ionicons name="cafe" size={34} color={Palette.primary} />
+          <Pressable
+            style={({ pressed }) => [styles.cardHeart, pressed && styles.pressed]}
+            onPress={onToggleFavorite}
+            hitSlop={8}
+            accessibilityRole="button"
+            accessibilityLabel={isFavorite ? `Remove ${cafe.name} from favorites` : `Save ${cafe.name} to favorites`}
+          >
+            <Ionicons
+              name={isFavorite ? "heart" : "heart-outline"}
+              size={14}
+              color={isFavorite ? Palette.error : Palette.onSurfaceVariant}
+            />
+          </Pressable>
         </View>
         <View style={styles.cardBody}>
           <View>
@@ -367,18 +383,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     elevation: 3,
   },
-  badgeDot: {
-    position: "absolute",
-    top: 8,
-    right: 9,
-    width: 8,
-    height: 8,
-    borderRadius: 9999,
-    backgroundColor: Palette.error,
-    borderWidth: 2,
-    borderColor: Palette.background,
-  },
-
   searchBar: {
     position: "absolute",
     left: 80,
@@ -514,6 +518,19 @@ const styles = StyleSheet.create({
     height: 88,
     borderRadius: 18,
     backgroundColor: Palette.secondaryContainer,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cardHeart: {
+    position: "absolute",
+    bottom: -6,
+    right: -6,
+    width: 24,
+    height: 24,
+    borderRadius: 9999,
+    backgroundColor: Palette.surfaceContainerLowest,
+    borderWidth: 2,
+    borderColor: Palette.background,
     alignItems: "center",
     justifyContent: "center",
   },

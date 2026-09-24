@@ -19,6 +19,34 @@ service cloud.firestore {
       match /private/{document} {
         allow read, write: if request.auth != null && request.auth.uid == uid;
       }
+
+      // Café IDs the user has favorited. Doc ID is the café ID, so presence
+      // of the doc is the favorite — no fields are required.
+      match /favoriteCafes/{cafeId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+
+    // A signed-in user's drink review at a café. Any signed-in user can read
+    // the feed; a post can only be created by its own author and is
+    // immutable afterward — there's no edit/delete UI yet.
+    match /posts/{postId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null
+        && request.resource.data.authorId == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.cafeId is string
+        && request.resource.data.cafeName is string
+        && request.resource.data.drink is string
+        && request.resource.data.drink.size() > 0
+        && request.resource.data.drink.size() <= 60
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.comment is string
+        && request.resource.data.comment.size() <= 500
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
     }
 
     // Everything else stays locked until its feature is built.

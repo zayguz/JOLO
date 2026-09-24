@@ -3,21 +3,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Typography } from "@/constants/Typography";
 
-const NOTIFICATIONS = [
-  {
-    id: "post-like",
-    icon: "star",
-    title: "Priya rated Oat Cortado 5 stars",
-    subtitle: "Bean & Leaf - Westside · 12 min ago",
-  },
-  {
-    id: "friends-posted",
-    icon: "people",
-    title: "3 friends posted this week",
-    subtitle: "Catch up on the feed · 1h ago",
-  },
-];
-
+// No notification source exists yet (no likes/comments/friend-request
+// events are generated anywhere) — this is an honest empty state rather
+// than placeholder content.
 export function NotificationsPanel({ visible, onClose, style }) {
   if (!visible) return null;
 
@@ -29,17 +17,10 @@ export function NotificationsPanel({ visible, onClose, style }) {
           <Ionicons name="close" size={18} color={Palette.onSurfaceVariant} />
         </Pressable>
       </View>
-      {NOTIFICATIONS.map((item, i) => (
-        <View key={item.id} style={[styles.row, i === NOTIFICATIONS.length - 1 && styles.rowLast]}>
-          <View style={styles.iconWrap}>
-            <Ionicons name={item.icon} size={16} color={Palette.primary} />
-          </View>
-          <View style={styles.textWrap}>
-            <Text style={styles.rowTitle}>{item.title}</Text>
-            <Text style={styles.rowSubtitle}>{item.subtitle}</Text>
-          </View>
-        </View>
-      ))}
+      <View style={styles.empty}>
+        <Ionicons name="notifications-outline" size={22} color={Palette.onSurfaceVariant} />
+        <Text style={styles.emptyText}>You're all caught up</Text>
+      </View>
     </View>
   );
 }
@@ -73,34 +54,14 @@ const styles = StyleSheet.create({
     ...Typography.labelLg,
     color: Palette.onSurface,
   },
-  row: {
-    flexDirection: "row",
-    gap: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: Palette.surfaceContainerLow,
-  },
-  rowLast: {
-    borderBottomWidth: 0,
-  },
-  iconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: Radius.full,
-    backgroundColor: Palette.secondaryContainer,
+  empty: {
     alignItems: "center",
-    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 22,
+    paddingHorizontal: 16,
   },
-  textWrap: { flex: 1 },
-  rowTitle: {
-    fontFamily: "PlusJakartaSans_600SemiBold",
-    fontSize: 13,
-    color: Palette.onSurface,
-  },
-  rowSubtitle: {
+  emptyText: {
     ...Typography.labelMd,
     color: Palette.onSurfaceVariant,
-    marginTop: 2,
   },
 });

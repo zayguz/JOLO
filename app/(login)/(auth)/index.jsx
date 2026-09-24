@@ -3,7 +3,7 @@ import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Palette } from "@/constants/Colors";
 import { Radius, Spacing, Typography } from "@/constants/Typography";
 import { useAuth } from "@/lib/auth";
@@ -107,23 +107,6 @@ export default function LoginView() {
           >
             <Text style={styles.outlineBtnLabel}>Create New Account</Text>
           </Pressable>
-
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerLabel}>or continue with</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <View style={styles.socialRow}>
-            <Pressable style={({ pressed }) => [styles.socialBtnLight, pressed && styles.pressed]}>
-              <FontAwesome name="google" size={18} color={Palette.primary} />
-              <Text style={styles.socialLabelDark}>Google</Text>
-            </Pressable>
-            <Pressable style={({ pressed }) => [styles.socialBtnDark, pressed && styles.pressed]}>
-              <FontAwesome name="apple" size={20} color="#ffffff" />
-              <Text style={styles.socialLabelLight}>Apple</Text>
-            </Pressable>
-          </View>
 
           <Pressable
             style={({ pressed }) => [styles.forgotBtn, pressed && styles.pressed]}
@@ -253,55 +236,6 @@ const styles = StyleSheet.create({
   outlineBtnLabel: {
     ...Typography.labelLg,
     color: Palette.primary,
-  },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.sm,
-    paddingVertical: 4,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: "rgba(129,116,113,0.25)",
-  },
-  dividerLabel: {
-    ...Typography.labelMd,
-    color: "rgba(44,27,23,0.6)",
-  },
-  socialRow: {
-    flexDirection: "row",
-    gap: Spacing.sm,
-  },
-  socialBtnLight: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    paddingVertical: 12,
-    borderRadius: Radius.full,
-    backgroundColor: Palette.surfaceContainerLowest,
-    borderWidth: 1,
-    borderColor: "rgba(129,116,113,0.4)",
-  },
-  socialBtnDark: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    paddingVertical: 12,
-    borderRadius: Radius.full,
-    backgroundColor: Palette.primary,
-  },
-  socialLabelDark: {
-    ...Typography.labelLg,
-    color: Palette.primary,
-  },
-  socialLabelLight: {
-    ...Typography.labelLg,
-    color: Palette.onPrimary,
   },
   forgotBtn: {
     alignItems: "center",
