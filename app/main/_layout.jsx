@@ -1,25 +1,55 @@
 import { Tabs } from "expo-router";
-import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { Palette } from "@/constants/Colors";
+import { Typography } from "@/constants/Typography";
 
 export default function MainLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
+        tabBarActiveTintColor: Palette.primary,
+        tabBarInactiveTintColor: Palette.onSurfaceVariant,
+        tabBarLabelStyle: {
+          fontFamily: Typography.labelMd.fontFamily,
+          fontSize: 11,
+        },
+        tabBarStyle: {
+          backgroundColor: Palette.background,
+          borderTopColor: Palette.outlineVariant,
+          height: 80,
+          paddingTop: 8,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Finder",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? "home" : "home-outline"} color={color} />
+            <TabBarIcon
+              name={focused ? "location" : "location-outline"}
+              color={color}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="social"
+        options={{
+          title: "Social",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? "people" : "people-outline"} color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: "Favorites",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? "heart" : "heart-outline"} color={color} focused={focused} />
           ),
         }}
       />
@@ -28,7 +58,7 @@ export default function MainLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? "person" : "person-outline"} color={color} />
+            <TabBarIcon name={focused ? "person" : "person-outline"} color={color} focused={focused} />
           ),
         }}
       />

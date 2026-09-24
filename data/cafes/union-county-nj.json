@@ -1,0 +1,3516 @@
+{
+  "area": "Union County, NJ",
+  "osmRelation": 957236,
+  "source": "OpenStreetMap via Overpass API",
+  "license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "fetchedAt": "2026-09-14T20:39:44.849Z",
+  "count": 71,
+  "cafes": [
+    {
+      "id": "osm-node-13811269295",
+      "source": "osm",
+      "osmId": "node/13811269295",
+      "name": "Coffee Culture Roastery",
+      "nameLower": "coffee culture roastery",
+      "brand": null,
+      "isChain": false,
+      "address": "462 Springfield Avenue, Berkeley Heights, NJ 07922",
+      "municipality": "Berkeley Heights",
+      "location": {
+        "lat": 40.6843063,
+        "lng": -74.4402301
+      },
+      "hours": {
+        "mo": [],
+        "tu": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "07:00",
+            "close": "11:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo off; Tu-Su 07:00-11:00",
+      "website": "https://www.coffeecultureroasterynj.com/",
+      "phone": "+1-201-240-4689",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-2352412645",
+      "source": "osm",
+      "osmId": "node/2352412645",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "384 Springfield Avenue, Berkeley Heights, NJ 07922",
+      "municipality": "Berkeley Heights",
+      "location": {
+        "lat": 40.686107,
+        "lng": -74.4373913
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 05:00-20:30; Su 05:00-20:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/berkeley-heights/384-springfield-ave/340476",
+      "phone": "+1 908-665-8966",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-8095210059",
+      "source": "osm",
+      "osmId": "node/8095210059",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "250 Connell Drive, Berkeley Heights, NJ 07922",
+      "municipality": "Berkeley Heights",
+      "location": {
+        "lat": 40.6628543,
+        "lng": -74.4167635
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/1020076/embassy-suites-berkeley-height-250-connell-drive-berkeley-heights-nj-07922-us",
+      "phone": "+1 908-897-1970",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-251018450",
+      "source": "osm",
+      "osmId": "way/251018450",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Clark",
+      "location": {
+        "lat": 40.6222103,
+        "lng": -74.3031749
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-19:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/clark/196-westfield-ave/301795",
+      "phone": "+1 732-574-0715",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-1033667383",
+      "source": "osm",
+      "osmId": "way/1033667383",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "315 Central Avenue, Clark, NJ 07066",
+      "municipality": "Clark",
+      "location": {
+        "lat": 40.6323149,
+        "lng": -74.3135489
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/clark/315-central-ave/352199",
+      "phone": "+1 732-943-7145",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-13144988372",
+      "source": "osm",
+      "osmId": "node/13144988372",
+      "name": "Espressito Cafe",
+      "nameLower": "espressito cafe",
+      "brand": null,
+      "isChain": false,
+      "address": "60 Westfield Avenue, Clark, NJ 07066",
+      "municipality": "Clark",
+      "location": {
+        "lat": 40.6191869,
+        "lng": -74.2974637
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "09:00",
+            "close": "14:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 07:00-16:00; Sa 08:00-16:00; Su 09:00-14:00",
+      "website": "https://www.espressitocafe.com",
+      "phone": "+1-848-304-3135",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-6747068572",
+      "source": "osm",
+      "osmId": "node/6747068572",
+      "name": "Cafe Teasia",
+      "nameLower": "cafe teasia",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6545604,
+        "lng": -74.3053153
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-1996953169",
+      "source": "osm",
+      "osmId": "node/1996953169",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "6-20 South Avenue East, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6542226,
+        "lng": -74.3078482
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 05:00-16:00; Su 06:00-16:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/cranford/6-20-south-ave-e/307763",
+      "phone": "+1 908-325-6665",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-1151925635",
+      "source": "osm",
+      "osmId": "way/1151925635",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1230 Raritan Road, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6346962,
+        "lng": -74.3032664
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-19:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/cranford/1230-raritan-rd/337394",
+      "phone": "+1 908-653-0245",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-543976705",
+      "source": "osm",
+      "osmId": "way/543976705",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "333 North Avenue East, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.658041,
+        "lng": -74.2918475
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-19:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/cranford/333-north-ave-e/301288",
+      "phone": "+1 908-325-6693",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-6387898049",
+      "source": "osm",
+      "osmId": "node/6387898049",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "200 S Avenue East, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6546597,
+        "lng": -74.3028219
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/1006676/cranford-train-station-200-s-ave-e-suite-101-cranford-nj-070162989-us",
+      "phone": "+1 908-272-3967",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-543976700",
+      "source": "osm",
+      "osmId": "way/543976700",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "345 North Avenue East, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6582071,
+        "lng": -74.2911385
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/1008821/cranford-n-ave-e-drive-thru-345-n-ave-e-cranford-nj-070162445-us",
+      "phone": "+1 908-272-7397",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-6373052925",
+      "source": "osm",
+      "osmId": "node/6373052925",
+      "name": "Track 5 Coffee",
+      "nameLower": "track 5 coffee",
+      "brand": null,
+      "isChain": false,
+      "address": "5 Eastman Street, Cranford, NJ 07016",
+      "municipality": "Cranford",
+      "location": {
+        "lat": 40.6554875,
+        "lng": -74.3051767
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:30",
+            "close": "19:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 06:30-19:00",
+      "website": "https://track5coffee.square.site/",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": true,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-11406467771",
+      "source": "osm",
+      "osmId": "node/11406467771",
+      "name": "Bluestone Lane",
+      "nameLower": "bluestone lane",
+      "brand": "Bluestone Lane",
+      "isChain": true,
+      "address": null,
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6822208,
+        "lng": -74.1879593
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-7668021004",
+      "source": "osm",
+      "osmId": "node/7668021004",
+      "name": "Brisas Empanadas",
+      "nameLower": "brisas empanadas",
+      "brand": null,
+      "isChain": false,
+      "address": "308 Morris Avenue, Elizabeth, NJ 07208",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6689597,
+        "lng": -74.2179495
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "11:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 11:00-21:00",
+      "website": "https://brisasempanadas.com/",
+      "phone": "+1-908-469-0218",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-9710631885",
+      "source": "osm",
+      "osmId": "node/9710631885",
+      "name": "Colombian Coffee Shop",
+      "nameLower": "colombian coffee shop",
+      "brand": null,
+      "isChain": false,
+      "address": "505 1/2 Rahway Avenue, Elizabeth, NJ",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.657384,
+        "lng": -74.2278449
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "colombiancshop.com",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-10613299777",
+      "source": "osm",
+      "osmId": "node/10613299777",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "624 Bayway, Elizabeth, NJ 07202",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6461264,
+        "lng": -74.2149313
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ]
+      },
+      "hoursRaw": "24/7",
+      "website": "https://locations.dunkindonuts.com/en/nj/elizabeth/624-bayway-ave/332939",
+      "phone": "+1 908-351-7757",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-10650826524",
+      "source": "osm",
+      "osmId": "node/10650826524",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "507 Bayway, Elizabeth, NJ 07202",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.644526,
+        "lng": -74.2116233
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-22:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/elizabeth/507-bayway-ave/353813",
+      "phone": "+1-908-372-0150",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-12363460231",
+      "source": "osm",
+      "osmId": "node/12363460231",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.672276,
+        "lng": -74.2141736
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-12046846557",
+      "source": "osm",
+      "osmId": "node/12046846557",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6609937,
+        "lng": -74.1732536
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-11405691534",
+      "source": "osm",
+      "osmId": "node/11405691534",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "6 Earhart Drive, Pre Security, NJ 07114",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6838441,
+        "lng": -74.1844079
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ]
+      },
+      "hoursRaw": "24/7",
+      "website": "https://locations.dunkindonuts.com/en/nj/newark/6-earhart-drive-pre-security/363849",
+      "phone": "+1 201-918-3802",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-1190064719",
+      "source": "osm",
+      "osmId": "way/1190064719",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6591914,
+        "lng": -74.2157883
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-719540741",
+      "source": "osm",
+      "osmId": "way/719540741",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "186 Elmora Avenue, Elizabeth, NJ 07202",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6638344,
+        "lng": -74.2342288
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:30"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:30"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:30"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:30"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "24:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "00:00",
+            "close": "21:30"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Th 05:00-21:30; Fr 05:00-24:00; Sa 00:00-24:00; Su 00:00-21:30",
+      "website": "https://locations.dunkindonuts.com/en/nj/elizabeth/186-elmora-ave/306342",
+      "phone": "+1 908-289-9327",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-469618981",
+      "source": "osm",
+      "osmId": "way/469618981",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "920 Newark Avenue, Elizabeth, NJ 07208",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6847776,
+        "lng": -74.206712
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-22:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/elizabeth/920-newark-ave/307221",
+      "phone": "+1 908-351-9333",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-11405691529",
+      "source": "osm",
+      "osmId": "node/11405691529",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "6 Earhardt Drive, Newark, NJ 07114",
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6842024,
+        "lng": -74.1872225
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/1040787/ewr-terminal-a-gate-28-6-earhardt-dr-newark-nj-07114-us",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-11405691527",
+      "source": "osm",
+      "osmId": "node/11405691527",
+      "name": "W.B. Law Coffee Company",
+      "nameLower": "w.b. law coffee company",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Elizabeth",
+      "location": {
+        "lat": 40.6855393,
+        "lng": -74.187632
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-4863033304",
+      "source": "osm",
+      "osmId": "node/4863033304",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "257 South Avenue, Fanwood, NJ 07023",
+      "municipality": "Fanwood",
+      "location": {
+        "lat": 40.6412069,
+        "lng": -74.3838935
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/fanwood/257-south-ave/308699",
+      "phone": "+1 908-322-2454",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-3838252749",
+      "source": "osm",
+      "osmId": "node/3838252749",
+      "name": "& Grain",
+      "nameLower": "& grain",
+      "brand": null,
+      "isChain": false,
+      "address": "700 North Avenue, Garwood, NJ 07027",
+      "municipality": "Garwood",
+      "location": {
+        "lat": 40.6526785,
+        "lng": -74.3307409
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": "+1 908 232 2233",
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-6438948787",
+      "source": "osm",
+      "osmId": "node/6438948787",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "323 North Avenue, Garwood, NJ 07027",
+      "municipality": "Garwood",
+      "location": {
+        "lat": 40.653073,
+        "lng": -74.3242127
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 05:00-19:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/garwood/323-north-ave/339645",
+      "phone": "+1 908-232-1680",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-12135980556",
+      "source": "osm",
+      "osmId": "node/12135980556",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Hillside",
+      "location": {
+        "lat": 40.6977662,
+        "lng": -74.2448277
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-371431870",
+      "source": "osm",
+      "osmId": "way/371431870",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1410 North Broad Street, Hillside, NJ 07205",
+      "municipality": "Hillside",
+      "location": {
+        "lat": 40.6978535,
+        "lng": -74.2175488
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "00:00",
+            "close": "24:00"
+          }
+        ]
+      },
+      "hoursRaw": "24/7",
+      "website": "https://locations.dunkindonuts.com/en/nj/hillside/1410-n-broad-st/355124",
+      "phone": "+1 862-255-2452",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-3529389692",
+      "source": "osm",
+      "osmId": "node/3529389692",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "534 Boulevard, Kenilworth, NJ 07033",
+      "municipality": "Kenilworth",
+      "location": {
+        "lat": 40.6763311,
+        "lng": -74.2907579
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:30",
+            "close": "18:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:30",
+            "close": "18:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:30",
+            "close": "18:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:30",
+            "close": "18:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:30",
+            "close": "18:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "06:00",
+            "close": "13:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "13:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 05:30-18:00; Sa,Su 06:00-13:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/kenilworth/534-boulevard/308280",
+      "phone": "+1 908-276-5859",
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-12999728980",
+      "source": "osm",
+      "osmId": "node/12999728980",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "651 North Stiles Street, Linden, NJ 07036",
+      "municipality": "Linden",
+      "location": {
+        "lat": 40.6265433,
+        "lng": -74.2673997
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://locations.dunkindonuts.com/en/nj/linden/651-north-stiles-street/362686",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-way-1230952432",
+      "source": "osm",
+      "osmId": "way/1230952432",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "126 East Edgar Road, Linden, NJ 07036",
+      "municipality": "Linden",
+      "location": {
+        "lat": 40.6278944,
+        "lng": -74.241692
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-22:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/linden/126-east-edgar-rd/331604",
+      "phone": "+1 908-474-5260",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-12363158592",
+      "source": "osm",
+      "osmId": "node/12363158592",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": null,
+      "municipality": "Linden",
+      "location": {
+        "lat": 40.6195737,
+        "lng": -74.2487113
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-1937573342",
+      "source": "osm",
+      "osmId": "node/1937573342",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1255 Springfield Avenue, New Providence, NJ 07974",
+      "municipality": "New Providence",
+      "location": {
+        "lat": 40.7068336,
+        "lng": -74.4051482
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "04:30",
+            "close": "20:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 04:30-20:00; Su 05:00-20:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/new-providence/1255-springfield-ave/334723",
+      "phone": "+1 908-508-9700",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-2639757065",
+      "source": "osm",
+      "osmId": "node/2639757065",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "1260 Springfield Avenue, New Providence, NJ 07974",
+      "municipality": "New Providence",
+      "location": {
+        "lat": 40.7065429,
+        "lng": -74.4043968
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/1006580/new-providence-village-center-1260-springfield-avenue-new-providence-nj-07974195",
+      "phone": "+1 908-464-0624",
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-1301148061",
+      "source": "osm",
+      "osmId": "way/1301148061",
+      "name": "The Cafe Luna",
+      "nameLower": "the cafe luna",
+      "brand": null,
+      "isChain": false,
+      "address": "43 Floral Avenue, New Providence, NJ 07974",
+      "municipality": "New Providence",
+      "location": {
+        "lat": 40.6955495,
+        "lng": -74.4032651
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "06:30",
+            "close": "16:30"
+          }
+        ],
+        "tu": [
+          {
+            "open": "06:30",
+            "close": "16:30"
+          }
+        ],
+        "we": [
+          {
+            "open": "06:30",
+            "close": "16:30"
+          }
+        ],
+        "th": [
+          {
+            "open": "06:30",
+            "close": "16:30"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:30",
+            "close": "15:30"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:30",
+            "close": "15:30"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:30",
+            "close": "14:30"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Th 06:30-16:30; Fr-Sa 07:30-15:30; Su 08:30-14:30",
+      "website": "https://thecafeluna.com",
+      "phone": null,
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": true,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-11334752186",
+      "source": "osm",
+      "osmId": "node/11334752186",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "190 Terrill Road, Plainfield, NJ 07062",
+      "municipality": "Plainfield",
+      "location": {
+        "lat": 40.6401707,
+        "lng": -74.4020665
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 05:00-21:00; Su 06:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/plainfield/190-terrill-road/356118",
+      "phone": "+1 908-755-3092",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-way-1125707923",
+      "source": "osm",
+      "osmId": "way/1125707923",
+      "name": "Copacabana Coffee & Bagles",
+      "nameLower": "copacabana coffee & bagles",
+      "brand": null,
+      "isChain": false,
+      "address": "77 East Milton Avenue, Rahway, NJ 07065",
+      "municipality": "Rahway",
+      "location": {
+        "lat": 40.6056705,
+        "lng": -74.2759798
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "06:00",
+            "close": "16:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "07:00",
+            "close": "16:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 06:00-16:00; Sa-Su 07:00-16:00",
+      "website": "https://copacabanacoffee.com/",
+      "phone": "+1 973-358-4381",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-10314016498",
+      "source": "osm",
+      "osmId": "node/10314016498",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1800 Route 1, Rahway, NJ 07065",
+      "municipality": "Rahway",
+      "location": {
+        "lat": 40.6051021,
+        "lng": -74.2637074
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "20:30"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-20:30",
+      "website": "https://locations.dunkindonuts.com/en/nj/rahway/1800-route-1/306610",
+      "phone": "+1 732-388-3388",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-node-10297015917",
+      "source": "osm",
+      "osmId": "node/10297015917",
+      "name": "Melao Cafe & Creamery",
+      "nameLower": "melao cafe & creamery",
+      "brand": null,
+      "isChain": false,
+      "address": "1425 Irving Street, Rahway, NJ 07065",
+      "municipality": "Rahway",
+      "location": {
+        "lat": 40.6063936,
+        "lng": -74.2755692
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 08:00-21:00",
+      "website": null,
+      "phone": "+1 732-428-4558",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-11209543552",
+      "source": "osm",
+      "osmId": "node/11209543552",
+      "name": "Rahway Kitty Hall",
+      "nameLower": "rahway kitty hall",
+      "brand": null,
+      "isChain": false,
+      "address": "209 West Main Street, Rahway, NJ 07065",
+      "municipality": "Rahway",
+      "location": {
+        "lat": 40.6110615,
+        "lng": -74.2767317
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://rahwaykittyhall.com/",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-10292454904",
+      "source": "osm",
+      "osmId": "node/10292454904",
+      "name": "The Coffee Box",
+      "nameLower": "the coffee box",
+      "brand": null,
+      "isChain": false,
+      "address": "1465 Irving Street, Rahway, NJ 07065",
+      "municipality": "Rahway",
+      "location": {
+        "lat": 40.6071158,
+        "lng": -74.2754141
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "07:45",
+            "close": "16:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 07:45-16:00",
+      "website": "https://www.cofbx.com/",
+      "phone": "+1 732-943-2354",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": true,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-1151684632",
+      "source": "osm",
+      "osmId": "way/1151684632",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1001 Wood Avenue, Roselle, NJ 07203",
+      "municipality": "Roselle",
+      "location": {
+        "lat": 40.6444478,
+        "lng": -74.2733379
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/roselle/1001-wood-ave/304817",
+      "phone": "+1 908-298-6800",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": false,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-712720484",
+      "source": "osm",
+      "osmId": "way/712720484",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "105 West 1st Avenue, Roselle, NJ 07203",
+      "municipality": "Roselle",
+      "location": {
+        "lat": 40.6597797,
+        "lng": -74.2639548
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-22:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/roselle/105-w-1st-ave/352319",
+      "phone": "+1 908-241-0115",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": true
+      }
+    },
+    {
+      "id": "osm-way-720388496",
+      "source": "osm",
+      "osmId": "way/720388496",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Roselle Park",
+      "location": {
+        "lat": 40.6617287,
+        "lng": -74.2660663
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://locations.dunkindonuts.com/en/nj/roselle-park/47-w.-westfield-ave/330474",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-12964903270",
+      "source": "osm",
+      "osmId": "node/12964903270",
+      "name": "Penstock Coffee Roasters",
+      "nameLower": "penstock coffee roasters",
+      "brand": null,
+      "isChain": false,
+      "address": "123 Chestnut Street, Roselle Park, NJ",
+      "municipality": "Roselle Park",
+      "location": {
+        "lat": 40.6624479,
+        "lng": -74.2640041
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:00",
+            "close": "14:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 08:00-14:00",
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-13858905801",
+      "source": "osm",
+      "osmId": "node/13858905801",
+      "name": "Black Drop Coffee",
+      "nameLower": "black drop coffee",
+      "brand": null,
+      "isChain": false,
+      "address": "431 Park Avenue, Scotch Plains, NJ 07076",
+      "municipality": "Scotch Plains",
+      "location": {
+        "lat": 40.6500487,
+        "lng": -74.3969942
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "07:00",
+            "close": "17:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "07:00",
+            "close": "17:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:00",
+            "close": "17:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:00",
+            "close": "17:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:00",
+            "close": "17:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:30",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "07:30",
+            "close": "16:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 07:00-17:00; Sa-Su 07:30-16:00",
+      "website": "https://www.blackdropcoffeenj.com",
+      "phone": "+1-908-956-0017",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-12299824489",
+      "source": "osm",
+      "osmId": "node/12299824489",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "2246 North Avenue, Scotch Plains, NJ 07076",
+      "municipality": "Scotch Plains",
+      "location": {
+        "lat": 40.6465156,
+        "lng": -74.3720096
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "20:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 05:00-20:00; Su 06:00-20:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/scotch-plains/2246-north-ave/357947",
+      "phone": "+1 908-312-5048",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-2609751514",
+      "source": "osm",
+      "osmId": "node/2609751514",
+      "name": "Boxwood Cafe",
+      "nameLower": "boxwood cafe",
+      "brand": null,
+      "isChain": false,
+      "address": "17 Beechwood Road, Summit, NJ 07901",
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7174915,
+        "lng": -74.357403
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.boxwoodcoffee.com/",
+      "phone": "+1 908-219-4076",
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-2825595317",
+      "source": "osm",
+      "osmId": "node/2825595317",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "33 Union Place, Summit, NJ 07901",
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.717032,
+        "lng": -74.3570084
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "19:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Th 05:00-22:00; Fr 05:00-19:00; Sa 05:00-22:00; Su 05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/summit/33-union-pl/330095",
+      "phone": "+1 908-273-1633",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-6499088263",
+      "source": "osm",
+      "osmId": "node/6499088263",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "545 Morris Avenue, Summit, NJ 07901",
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7271666,
+        "lng": -74.3743411
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo 05:00-22:00; Tu 05:00-21:00; We-Sa 05:00-22:00; Su 05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/summit/545-morris-ave/348018",
+      "phone": "+1 908-273-9303",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-way-435186019",
+      "source": "osm",
+      "osmId": "way/435186019",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": null,
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.712052,
+        "lng": -74.348269
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "22:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 05:00-22:00; Sa-Su 05:00-21:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/summit/10-ashwood-ave/352106",
+      "phone": "+1 908-219-4411",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-11365000951",
+      "source": "osm",
+      "osmId": "node/11365000951",
+      "name": "Gregorys Coffee",
+      "nameLower": "gregorys coffee",
+      "brand": "Gregorys Coffee",
+      "isChain": true,
+      "address": null,
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7180393,
+        "lng": -74.3560593
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.gregoryscoffee.com/",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-2825595314",
+      "source": "osm",
+      "osmId": "node/2825595314",
+      "name": "Marigolds",
+      "nameLower": "marigolds",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7177221,
+        "lng": -74.3595112
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.marigoldssummit.com/",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-8987934401",
+      "source": "osm",
+      "osmId": "node/8987934401",
+      "name": "Serra Doce",
+      "nameLower": "serra doce",
+      "brand": null,
+      "isChain": false,
+      "address": "21 Union Place, Summit, NJ 07901",
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7170258,
+        "lng": -74.3568459
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "07:00",
+            "close": "18:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:00",
+            "close": "18:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 07:00-18:00; Su 08:00-18:00",
+      "website": "https://www.serrasummit.com/",
+      "phone": "+1 908-312-9083",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-318448119",
+      "source": "osm",
+      "osmId": "node/318448119",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "2 Beechwood Road, Summit, NJ 07901",
+      "municipality": "Summit",
+      "location": {
+        "lat": 40.7170538,
+        "lng": -74.3577223
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/13473/summit-2-beechwood-road-summit-nj-079012511-us",
+      "phone": "+1 908-273-3121",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-12604550736",
+      "source": "osm",
+      "osmId": "node/12604550736",
+      "name": "Ayala Coffee",
+      "nameLower": "ayala coffee",
+      "brand": null,
+      "isChain": false,
+      "address": "946 Stuyvesant Avenue, Union, NJ",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6953027,
+        "lng": -74.2717862
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": true,
+        "outdoorSeating": false,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-1255854135",
+      "source": "osm",
+      "osmId": "way/1255854135",
+      "name": "Ayala Coffee",
+      "nameLower": "ayala coffee",
+      "brand": null,
+      "isChain": false,
+      "address": "1917 Morris Avenue, Union, NJ",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6957726,
+        "lng": -74.266015
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-1557199946",
+      "source": "osm",
+      "osmId": "way/1557199946",
+      "name": "Deaf Shark Coffee",
+      "nameLower": "deaf shark coffee",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6833826,
+        "lng": -74.2384392
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://deafsharkcoffee.com/",
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-11402447819",
+      "source": "osm",
+      "osmId": "node/11402447819",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "1982 Morris Avenue, Union, NJ 07083",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6960159,
+        "lng": -74.2689191
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "15:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "15:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 05:00-17:00; Sa 05:00-15:00; Su 06:00-15:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/union/1982-morris-ave/345128",
+      "phone": "+1 908-810-9797",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-540401725",
+      "source": "osm",
+      "osmId": "node/540401725",
+      "name": "Dunkin' Donuts",
+      "nameLower": "dunkin' donuts",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "320 Chestnut Street, Union, NJ 07083",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6766726,
+        "lng": -74.2676043
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "05:00",
+            "close": "20:00"
+          }
+        ]
+      },
+      "hoursRaw": "05:00-20:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/union/320-chestnut-st/330997",
+      "phone": "+1 908-624-0500",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-2892675059",
+      "source": "osm",
+      "osmId": "node/2892675059",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "2698 Route 22 East, Union, NJ 07083",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6887742,
+        "lng": -74.307252
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/13523/rt-22-center-island-2698-route-22-east-union-nj-070838574-us",
+      "phone": "+1 908-687-7299",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-12593506539",
+      "source": "osm",
+      "osmId": "node/12593506539",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": null,
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6985605,
+        "lng": -74.2519142
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-9064137409",
+      "source": "osm",
+      "osmId": "node/9064137409",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "1000 Morris Avenue, Union, NJ 07083",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6780173,
+        "lng": -74.2339287
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:00",
+            "close": "16:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Su 08:00-16:00",
+      "website": "https://www.starbucks.com/store-locator/store/19127/kean-university-thompson-libra-1000-morris-ave-union-nj-070837133-us",
+      "phone": "+1 908-737-4688",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-9054865556",
+      "source": "osm",
+      "osmId": "node/9054865556",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "1011 Morris Avenue, Union, NJ 07083",
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6827402,
+        "lng": -74.2338914
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "21:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "06:00",
+            "close": "22:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "22:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 05:00-21:00; Sa-Su 06:00-22:00",
+      "website": "https://www.starbucks.com/store-locator/store/1026901/vermella-union-morris-ave-1011-g-morris-ave-suite-a-union-nj-070837120-us",
+      "phone": "+1 732-404-7805",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-9081177172",
+      "source": "osm",
+      "osmId": "node/9081177172",
+      "name": "Unity Cafe",
+      "nameLower": "unity cafe",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Union",
+      "location": {
+        "lat": 40.6792384,
+        "lng": -74.2367215
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "07:00",
+            "close": "20:30"
+          }
+        ],
+        "tu": [
+          {
+            "open": "07:00",
+            "close": "20:30"
+          }
+        ],
+        "we": [
+          {
+            "open": "07:00",
+            "close": "20:30"
+          }
+        ],
+        "th": [
+          {
+            "open": "07:00",
+            "close": "20:30"
+          }
+        ],
+        "fr": [
+          {
+            "open": "07:00",
+            "close": "20:30"
+          }
+        ],
+        "sa": [
+          {
+            "open": "08:00",
+            "close": "17:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "08:00",
+            "close": "17:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Fr 07:00-20:30; Sa-Su 08:00-17:00",
+      "website": "https://www.uintycafenj.com/menus",
+      "phone": "+1 908-737-5326",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-way-420426455",
+      "source": "osm",
+      "osmId": "way/420426455",
+      "name": "Dunkin'",
+      "nameLower": "dunkin'",
+      "brand": "Dunkin'",
+      "isChain": true,
+      "address": "421 Central Avenue, Westfield, NJ 07090",
+      "municipality": "Westfield",
+      "location": {
+        "lat": 40.6490561,
+        "lng": -74.3418383
+      },
+      "hours": {
+        "mo": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "tu": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "we": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "th": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "fr": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "sa": [
+          {
+            "open": "05:00",
+            "close": "17:00"
+          }
+        ],
+        "su": [
+          {
+            "open": "06:00",
+            "close": "17:00"
+          }
+        ]
+      },
+      "hoursRaw": "Mo-Sa 05:00-17:00; Su 06:00-17:00",
+      "website": "https://locations.dunkindonuts.com/en/nj/westfield/421-central-ave/335599",
+      "phone": "+1 908-228-2046",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": false
+      }
+    },
+    {
+      "id": "osm-node-1978352936",
+      "source": "osm",
+      "osmId": "node/1978352936",
+      "name": "Rockn' Joe",
+      "nameLower": "rockn' joe",
+      "brand": null,
+      "isChain": false,
+      "address": null,
+      "municipality": "Westfield",
+      "location": {
+        "lat": 40.6504429,
+        "lng": -74.3487695
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": null,
+      "phone": null,
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    },
+    {
+      "id": "osm-node-1978400620",
+      "source": "osm",
+      "osmId": "node/1978400620",
+      "name": "Starbucks",
+      "nameLower": "starbucks",
+      "brand": "Starbucks",
+      "isChain": true,
+      "address": "117 Central Avenue, Westfield, NJ 07090",
+      "municipality": "Westfield",
+      "location": {
+        "lat": 40.6520074,
+        "lng": -74.3469636
+      },
+      "hours": null,
+      "hoursRaw": null,
+      "website": "https://www.starbucks.com/store-locator/store/18392/westfield-117-central-avenue-westfield-nj-070902149-us",
+      "phone": "+1 908-789-8424",
+      "amenities": {
+        "wifi": null,
+        "outdoorSeating": null,
+        "driveThrough": null
+      }
+    }
+  ]
+}

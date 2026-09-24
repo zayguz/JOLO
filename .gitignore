@@ -18,6 +18,10 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# Firebase Admin credentials (used by scripts/cafes/upload-cafes.mjs)
+service-account*.json
+*-firebase-adminsdk-*.json
+
 # Metro
 .metro-health-check*
 

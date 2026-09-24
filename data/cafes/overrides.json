@@ -1,0 +1,5 @@
+{
+  "osm-node-9064154525": { "exclude": true, "reason": "STEM Kiosk: Kean University campus, not open to the public" },
+  "osm-node-9064135429": { "exclude": true, "reason": "North Side Cafe: Kean University campus, not open to the public" },
+  "osm-node-9064150018": { "exclude": true, "reason": "Cougar Cafe: Kean University campus, not open to the public" }
+}
