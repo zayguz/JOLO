@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { Stack } from "expo-router";
-import { Platform } from "react-native";
-import { lightColors, createTheme, ThemeProvider as RNEThemeProvider } from "@rneui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as SplashScreen from "expo-splash-screen";
@@ -21,18 +19,6 @@ import { AuthProvider, useAuth } from "@/lib/auth";
 
 SplashScreen.preventAutoHideAsync();
 
-const theme = createTheme({
-  lightColors: {
-    ...Platform.select({
-      default: lightColors.platform.android,
-      ios: lightColors.platform.ios,
-    }),
-    primary: Palette.primary,
-    secondary: Palette.secondary,
-    background: Palette.background,
-  },
-});
-
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     Montserrat_600SemiBold,
@@ -48,11 +34,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <RNEThemeProvider theme={theme}>
-          <AuthProvider>
-            <RootNavigator />
-          </AuthProvider>
-        </RNEThemeProvider>
+        <AuthProvider>
+          <RootNavigator />
+        </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
