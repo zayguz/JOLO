@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "test:rules": "firebase emulators:exec --only firestore --project demo-jolo 'jest -c jest.rules.config.js'"
   },
   "dependencies": {
     "@expo-google-fonts/montserrat": "^0.4.2",
@@ -44,11 +45,13 @@
   },
   "private": true,
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@testing-library/react-native": "^14.1.0",
     "@types/react": "~19.1.10",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "firebase-admin": "^14.4.0",
+    "firebase-tools": "^15.34.1",
     "globals": "^16.5.0",
     "prettier": "^3.9.10",
     "typescript": "~5.9.2"
@@ -57,6 +60,10 @@
     "preset": "jest-expo",
     "modulePathIgnorePatterns": [
       "<rootDir>/.claude/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/tests/rules/"
     ]
   }
 }

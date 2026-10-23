@@ -19,4 +19,9 @@ module.exports = defineConfig([
     files: ["**/__tests__/**", "**/*.test.js"],
     languageOptions: { globals: globals.jest },
   },
+  {
+    // Rules tests run in Node against the emulator, not in React Native.
+    files: ["tests/rules/**"],
+    languageOptions: { globals: globals.node },
+  },
 ]);
