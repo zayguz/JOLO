@@ -49,11 +49,13 @@ export function AuthProvider({ children }) {
           ensureUserProfile({ uid, email, displayName }).catch((error) => {
             // Not fatal: retried on the next launch. Logged so a failing write
             // is diagnosable instead of silently missing.
-            console.warn(`[jolo] profile sync failed: ${error?.code ?? "unknown"} — ${error?.message}`);
+            console.warn(
+              `[jolo] profile sync failed: ${error?.code ?? "unknown"} — ${error?.message}`,
+            );
           });
         }
       }),
-    []
+    [],
   );
 
   const value = useMemo(
@@ -62,19 +64,25 @@ export function AuthProvider({ children }) {
       initializing,
       signIn: (email, password) => signInWithEmailAndPassword(auth, email.trim(), password),
       signUp: async (name, email, password) => {
-        const { user: created } = await createUserWithEmailAndPassword(auth, email.trim(), password);
+        const { user: created } = await createUserWithEmailAndPassword(
+          auth,
+          email.trim(),
+          password,
+        );
         const displayName = name.trim();
         await updateProfile(created, { displayName });
         await ensureUserProfile({ uid: created.uid, email: created.email, displayName }).catch(
           (error) => {
-            console.warn(`[jolo] profile create failed: ${error?.code ?? "unknown"} — ${error?.message}`);
-          }
+            console.warn(
+              `[jolo] profile create failed: ${error?.code ?? "unknown"} — ${error?.message}`,
+            );
+          },
         );
       },
       signOut: () => firebaseSignOut(auth),
       resetPassword: (email) => sendPasswordResetEmail(auth, email.trim()),
     }),
-    [user, initializing]
+    [user, initializing],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

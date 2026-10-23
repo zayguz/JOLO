@@ -1,13 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
@@ -205,7 +197,10 @@ export default function SocialView() {
         </View>
       </ScrollView>
 
-      <Pressable style={({ pressed }) => [styles.fab, pressed && styles.pressed]} onPress={openComposer}>
+      <Pressable
+        style={({ pressed }) => [styles.fab, pressed && styles.pressed]}
+        onPress={openComposer}
+      >
         <Ionicons name="add" size={26} color={Palette.onPrimary} />
       </Pressable>
 
@@ -241,7 +236,9 @@ export default function SocialView() {
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={[styles.chipLabel, draftDrink === d && styles.chipLabelActive]}>{d}</Text>
+                <Text style={[styles.chipLabel, draftDrink === d && styles.chipLabelActive]}>
+                  {d}
+                </Text>
               </Pressable>
             ))}
           </View>

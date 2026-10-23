@@ -1,11 +1,6 @@
 import { Platform } from "react-native";
 import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
-import {
-  getAuth,
-  getReactNativePersistence,
-  initializeAuth,
-  type Auth,
-} from "firebase/auth";
+import { getAuth, getReactNativePersistence, initializeAuth, type Auth } from "firebase/auth";
 // The Lite SDK talks to Firestore over ordinary HTTPS requests. The full SDK's
 // streaming transport (WebChannel) cannot connect from React Native here — it
 // fails with "RPC 'Listen' stream transport errored" and the client stays
@@ -33,7 +28,7 @@ const missing = Object.entries(firebaseConfig)
 if (missing.length > 0) {
   throw new Error(
     `Firebase config is missing: ${missing.join(", ")}. ` +
-      "Copy .env.example to .env.local, fill in the values, and restart Expo."
+      "Copy .env.example to .env.local, fill in the values, and restart Expo.",
   );
 }
 

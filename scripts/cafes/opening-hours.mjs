@@ -28,7 +28,10 @@ export function parseOpeningHours(raw) {
   // Days not mentioned by any rule are closed, per the OSM spec.
   const week = Object.fromEntries(DAYS.map((d) => [d, []]));
 
-  for (const rule of value.split(";").map((r) => r.trim()).filter(Boolean)) {
+  for (const rule of value
+    .split(";")
+    .map((r) => r.trim())
+    .filter(Boolean)) {
     if (/^(PH|SH)\b/.test(rule)) continue;
 
     const match = rule.match(RULE);

@@ -100,25 +100,27 @@ export default function FavoritesView() {
   const removeCreation = (item) => {
     setRemovedCreations((prev) => [...prev, item.id]);
     showToast(`Removed "${item.name}" from favorites`, () =>
-      setRemovedCreations((prev) => prev.filter((id) => id !== item.id))
+      setRemovedCreations((prev) => prev.filter((id) => id !== item.id)),
     );
   };
   const removeSpot = (item) => {
     setRemovedSpots((prev) => [...prev, item.id]);
     showToast(`Removed "${item.name}" from favorites`, () =>
-      setRemovedSpots((prev) => prev.filter((id) => id !== item.id))
+      setRemovedSpots((prev) => prev.filter((id) => id !== item.id)),
     );
   };
   const toggleCommunityCreation = (item) => {
     const saved = savedCommunityCreations.includes(item.id);
     setSavedCommunityCreations((prev) =>
-      saved ? prev.filter((id) => id !== item.id) : [...prev, item.id]
+      saved ? prev.filter((id) => id !== item.id) : [...prev, item.id],
     );
     dismissToast();
   };
   const toggleCommunitySpot = (item) => {
     const saved = savedCommunitySpots.includes(item.id);
-    setSavedCommunitySpots((prev) => (saved ? prev.filter((id) => id !== item.id) : [...prev, item.id]));
+    setSavedCommunitySpots((prev) =>
+      saved ? prev.filter((id) => id !== item.id) : [...prev, item.id],
+    );
     dismissToast();
   };
 
@@ -185,7 +187,10 @@ export default function FavoritesView() {
                 ))}
               </ScrollView>
             ) : (
-              <EmptyRow icon="heart" text="No favorited creations yet. Heart a drink from Social to save it here." />
+              <EmptyRow
+                icon="heart"
+                text="No favorited creations yet. Heart a drink from Social to save it here."
+              />
             )}
 
             <View style={[styles.sectionHead, styles.sectionHeadSecond]}>
@@ -203,7 +208,10 @@ export default function FavoritesView() {
                   <View key={item.id} style={styles.circleCard}>
                     <View style={styles.circleThumb}>
                       <Ionicons name="cafe" size={38} color={Palette.primary} />
-                      <Pressable style={styles.circleHeart} onPress={() => toggleCommunityCreation(item)}>
+                      <Pressable
+                        style={styles.circleHeart}
+                        onPress={() => toggleCommunityCreation(item)}
+                      >
                         <Ionicons
                           name={saved ? "heart" : "heart-outline"}
                           size={14}
@@ -253,7 +261,10 @@ export default function FavoritesView() {
                 ))}
               </ScrollView>
             ) : (
-              <EmptyRow icon="location" text="No favorite spots yet. Heart a café on the Finder tab to save it here." />
+              <EmptyRow
+                icon="location"
+                text="No favorite spots yet. Heart a café on the Finder tab to save it here."
+              />
             )}
 
             <View style={[styles.sectionHead, styles.sectionHeadSecond]}>
@@ -271,7 +282,10 @@ export default function FavoritesView() {
                   <View key={item.id} style={styles.circleCard}>
                     <View style={styles.circleThumb}>
                       <Image source={{ uri: item.image }} style={styles.circleImage} />
-                      <Pressable style={styles.circleHeart} onPress={() => toggleCommunitySpot(item)}>
+                      <Pressable
+                        style={styles.circleHeart}
+                        onPress={() => toggleCommunitySpot(item)}
+                      >
                         <Ionicons
                           name={saved ? "heart" : "heart-outline"}
                           size={14}
