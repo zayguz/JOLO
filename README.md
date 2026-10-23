@@ -2,6 +2,8 @@
 
 A café-finder and coffee-social app built with Expo Router, React Native, and Firebase. Sign in, browse nearby cafés on a live map (seeded from OpenStreetMap), and share what you're drinking.
 
+See [docs/ROADMAP.md](docs/ROADMAP.md) for what's left before launch.
+
 ## Prerequisites
 
 - Node.js 20+ and npm
