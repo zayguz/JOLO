@@ -22,6 +22,12 @@ expo-env.d.ts
 service-account*.json
 *-firebase-adminsdk-*.json
 
+# Native Firebase config per environment (firebase/dev/, firebase/prod/). Not
+# secret, but kept out of this public repo; EAS builds get them from env vars.
+/firebase/
+GoogleService-Info.plist
+google-services.json
+
 # Metro
 .metro-health-check*
 
