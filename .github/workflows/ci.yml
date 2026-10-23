@@ -24,6 +24,10 @@ jobs:
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm test
+      - name: App config resolves for every variant
+        run: |
+          APP_VARIANT=development npx expo config --type public > /dev/null
+          APP_VARIANT=production npx expo config --type public > /dev/null
       - name: Expo dependency check
         run: npx expo-doctor
 
