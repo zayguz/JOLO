@@ -22,12 +22,12 @@ Status as of 2026-10-23. Check items off (`- [x]`) as they land.
 
 ## Phase 0: Foundation and cleanup (~1–2 days)
 
-- [ ] 1. Fix dependency drift: `babel-preset-expo ^55` is installed on Expo SDK 54. Run `npx expo install --fix` and get `npx expo-doctor` passing.
-- [ ] 2. Delete or fill in [app/+html.jsx](../app/+html.jsx), an empty (0-byte) route file that can break web builds.
-- [ ] 3. Remove `babel-plugin-module-resolver` (Expo already resolves `@/` from `tsconfig.json`). Remove `@rneui` too unless you plan to use it; only the theme provider uses it now.
-- [ ] 4. Add tooling: ESLint (`eslint-config-expo`), Prettier, Jest (`jest-expo`) with React Native Testing Library. Optionally migrate to TypeScript file by file.
-- [ ] 5. CI (GitHub Actions): lint, type-check, unit tests, and Firestore rules tests against the emulator on every PR.
-- [ ] 6. Separate Firebase projects (`jolo-dev`, `jolo-prod`), each with its own env file, so testing never touches real user data.
+- [x] 1. Fix dependency drift: `babel-preset-expo ^55` is installed on Expo SDK 54. Run `npx expo install --fix` and get `npx expo-doctor` passing.
+- [x] 2. Delete or fill in [app/+html.jsx](../app/+html.jsx), an empty (0-byte) route file that can break web builds.
+- [x] 3. Remove `babel-plugin-module-resolver` (Expo already resolves `@/` from `tsconfig.json`). Remove `@rneui` too unless you plan to use it; only the theme provider uses it now.
+- [x] 4. Add tooling: ESLint (`eslint-config-expo`), Prettier, Jest (`jest-expo`) with React Native Testing Library. Optionally migrate to TypeScript file by file.
+- [x] 5. CI (GitHub Actions): lint, type-check, unit tests, and Firestore rules tests against the emulator on every PR.
+- [ ] 6. Separate Firebase projects (`jolo-dev`, `jolo-prod`), each with its own native config files and bundle IDs, so testing never touches real user data. Steps: [rnfirebase-migration.md](rnfirebase-migration.md) Parts 0–1.
 
 ## Phase 1: Data model and backend (~1 week)
 
@@ -35,20 +35,20 @@ Status as of 2026-10-23. Check items off (`- [x]`) as they land.
   - `posts/{postId}`: author, café ID, drink, rating, comment, photo path, created time
   - `posts/{id}/likes/{uid}` and `posts/{id}/comments/{id}`
   - `users/{uid}/favorites/{cafeId}`, plus saved drinks
-  - `friendships` or `follows`, and `friendRequests`
+  - One-way follows (decided 2026-10-23): `users/{uid}/following/{targetUid}`, mirrored to `users/{targetUid}/followers/{uid}` by a Cloud Function. No friend requests.
   - `users/{uid}/notifications/{id}`
 - [ ] 8. Firestore rules for each collection, tested with `@firebase/rules-unit-testing`: validate field types and sizes, check ownership, make counter fields impossible for clients to write.
-- [ ] 9. Cloud Functions for anything clients can't be trusted with: café `ratingSum` / `ratingCount` / `favoriteCount`, user stats (`postCount`, `friendCount`), notification fan-out, and account-deletion cleanup.
+- [ ] 9. Cloud Functions for anything clients can't be trusted with: café `ratingSum` / `ratingCount` / `favoriteCount`, user stats (`postCount`, `followerCount`, `followingCount`), notification fan-out, and account-deletion cleanup.
 - [ ] 10. Firebase Storage for avatars and post photos, with Storage rules (size/type limits, owner-only writes). Use `expo-image-picker` and resize before upload.
 - [ ] 11. Add `firestore.indexes.json` to [firebase.json](../firebase.json) for feed queries (posts by author + time, posts by café + time).
-- [ ] 12. Decide Firestore Lite vs. full SDK. Lite has no realtime listeners or offline cache — pull-to-refresh is fine for v1. For a live feed and offline support, switch to `@react-native-firebase` (needs dev builds, which Phase 5 adds anyway).
+- [ ] 12. Switch from Firestore Lite to `@react-native-firebase` (decided 2026-10-23) for realtime listeners, offline cache, and native App Check. Needs dev builds instead of Expo Go. Plan: [rnfirebase-migration.md](rnfirebase-migration.md), starting once item 6's projects exist.
 
 ## Phase 2: Finish the features (~2–3 weeks)
 
 - [ ] 13. Social: real feed with pagination (`limit` + `startAfter`); composer writes to `posts` with the café picked from Firestore (not the hardcoded "Aroma & Crema"); likes, comments, optional photos; empty, loading, and error states.
 - [ ] 14. Favorites: heart button on Finder cards and café details writes to `users/{uid}/favorites`; the Favorites tab reads from there; "community" sections come from aggregated data.
 - [ ] 15. Profile: real stats, avatar upload, edit name and personal info, notification settings (already stored in `users/{uid}/private/account`), "Your Posts", "Saved Cafés".
-- [ ] 16. Friends: user search, send/accept/decline requests, friends-only feed filter.
+- [ ] 16. Follows: user search, follow/unfollow, follower and following lists, a feed of people you follow.
 - [ ] 17. Notifications: in-app list from Firestore, plus push via `expo-notifications` (device tokens in `private/`, sent from Cloud Functions).
 - [ ] 18. Café details screen: deep-linkable route such as `/main/cafe/[id]` with hours, photos, recent posts, rating breakdown.
 - [ ] 19. Location UX: when permission is `denied` or `unavailable`, show a banner linking to Settings and fall back to a default map region. [useUserLocation.js](../hooks/useUserLocation.js) reports the status, but the UI doesn't use it yet.
