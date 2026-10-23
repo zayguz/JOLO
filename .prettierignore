@@ -1,0 +1,4 @@
+data/cafes/*.json
+package-lock.json
+.claude/
+*.md
