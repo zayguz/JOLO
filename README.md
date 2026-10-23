@@ -7,7 +7,8 @@ A café-finder and coffee-social app built with Expo Router, React Native, and F
 - Node.js 20+ and npm
 - The [Expo Go](https://expo.dev/go) app (for the fastest way to run this on a physical device), or Xcode/Android Studio if you want to run `expo run:ios` / `expo run:android`
 - A [Firebase](https://console.firebase.google.com/) project with **Authentication (Email/Password provider)** and **Firestore** enabled
-- Optionally, the [Firebase CLI](https://firebase.google.com/docs/cli) (`npm install -g firebase-tools`) to deploy `firestore.rules` and run local emulators
+- The [Firebase CLI](https://firebase.google.com/docs/cli) is installed as a dev dependency (run it with `npx firebase`, or install it globally with `npm install -g firebase-tools`) to deploy `firestore.rules` and run local emulators
+- Java 21+ (e.g. `brew install --cask temurin@21`) to run the Firestore emulator and `npm run test:rules`
 
 ## Setup
 
@@ -89,3 +90,10 @@ firestore.rules        Firestore security rules
 | `npm run ios` | Build and run on iOS (`expo run:ios`) |
 | `npm run android` | Build and run on Android (`expo run:android`) |
 | `npm run web` | Start the Expo web dev server |
+| `npm run lint` | Lint with ESLint (`eslint-config-expo`) |
+| `npm run format` | Format with Prettier (`format:check` to verify only) |
+| `npm run typecheck` | Type-check the TypeScript files |
+| `npm test` | Run the unit tests (Jest) |
+| `npm run test:rules` | Test `firestore.rules` against the Firestore emulator (needs Java 21+) |
+
+CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs all of these checks, plus `expo-doctor`, on every pull request.

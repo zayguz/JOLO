@@ -89,7 +89,11 @@ export default function LoginView() {
           )}
 
           <Pressable
-            style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
+            style={({ pressed }) => [
+              styles.primaryBtn,
+              pressed && styles.pressed,
+              busy && styles.btnBusy,
+            ]}
             onPress={handleSignIn}
             disabled={busy}
           >
@@ -135,8 +139,7 @@ export default function LoginView() {
         </BlurView>
 
         <Text style={styles.footer}>
-          By signing up, you agree to our{" "}
-          <Text style={styles.footerLink}>Terms of Service</Text>
+          By signing up, you agree to our <Text style={styles.footerLink}>Terms of Service</Text>
         </Text>
       </View>
     </SafeAreaView>

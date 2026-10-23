@@ -21,7 +21,7 @@ const { values: args } = parseArgs({
 if (!args["service-account"]) {
   console.error(
     "Missing credentials. Download a key from Firebase console → Project settings → Service accounts,\n" +
-      "then pass --service-account <path> or set GOOGLE_APPLICATION_CREDENTIALS."
+      "then pass --service-account <path> or set GOOGLE_APPLICATION_CREDENTIALS.",
   );
   process.exit(1);
 }
@@ -86,8 +86,12 @@ const existingOsm = await collection.where("source", "==", "osm").select().get()
 const stale = existingOsm.docs.map((d) => d.id).filter((id) => !seedIds.has(id));
 
 const prefix = args["dry-run"] ? "[dry run] Would have" : "Done:";
-console.log(`${prefix} created ${created}, updated ${updated} cafés in project ${serviceAccount.project_id}.`);
+console.log(
+  `${prefix} created ${created}, updated ${updated} cafés in project ${serviceAccount.project_id}.`,
+);
 if (stale.length > 0) {
-  console.log(`\n${stale.length} OSM cafés in Firestore are no longer in ${args.file} (left in place):`);
+  console.log(
+    `\n${stale.length} OSM cafés in Firestore are no longer in ${args.file} (left in place):`,
+  );
   for (const id of stale) console.log(`  ${id}`);
 }

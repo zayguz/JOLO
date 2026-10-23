@@ -20,11 +20,14 @@ export function useUserLocation() {
       const lastKnown = await Location.getLastKnownPositionAsync();
       if (lastKnown) update({ status: "granted", coords: lastKnown.coords });
 
-      const current = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const current = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
       update({ status: "granted", coords: current.coords });
     })().catch(() => {
       // Keep a last-known fix if we got one; otherwise report the lookup as unavailable.
-      if (!cancelled) setState((prev) => (prev.coords ? prev : { status: "unavailable", coords: null }));
+      if (!cancelled)
+        setState((prev) => (prev.coords ? prev : { status: "unavailable", coords: null }));
     });
 
     return () => {

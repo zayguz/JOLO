@@ -40,7 +40,11 @@ export default function MainLayout() {
         options={{
           title: "Social",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? "people" : "people-outline"} color={color} focused={focused} />
+            <TabBarIcon
+              name={focused ? "people" : "people-outline"}
+              color={color}
+              focused={focused}
+            />
           ),
         }}
       />
@@ -49,7 +53,11 @@ export default function MainLayout() {
         options={{
           title: "Favorites",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? "heart" : "heart-outline"} color={color} focused={focused} />
+            <TabBarIcon
+              name={focused ? "heart" : "heart-outline"}
+              color={color}
+              focused={focused}
+            />
           ),
         }}
       />
@@ -58,7 +66,11 @@ export default function MainLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? "person" : "person-outline"} color={color} focused={focused} />
+            <TabBarIcon
+              name={focused ? "person" : "person-outline"}
+              color={color}
+              focused={focused}
+            />
           ),
         }}
       />

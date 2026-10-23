@@ -90,7 +90,11 @@ export default function ForgotPasswordScreen() {
         )}
 
         <Pressable
-          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
+          style={({ pressed }) => [
+            styles.primaryBtn,
+            pressed && styles.pressed,
+            busy && styles.btnBusy,
+          ]}
           onPress={handleSend}
           disabled={busy}
         >

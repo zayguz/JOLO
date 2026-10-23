@@ -66,7 +66,7 @@ export default function FinderView() {
         (cafe) =>
           !needle ||
           cafe.name.toLowerCase().includes(needle) ||
-          cafe.municipality?.toLowerCase().includes(needle)
+          cafe.municipality?.toLowerCase().includes(needle),
       )
       .map((cafe) => ({ ...cafe, miles: nearby ? distanceMiles(coords, cafe.coordinate) : null }))
       .sort((a, b) => (nearby ? a.miles - b.miles : a.name.localeCompare(b.name)));
@@ -75,7 +75,9 @@ export default function FinderView() {
   // Keep the selected café pinned to the top of the sheet.
   const listData = useMemo(() => {
     const selected = visibleCafes.find((cafe) => cafe.id === selectedId);
-    return selected ? [selected, ...visibleCafes.filter((cafe) => cafe.id !== selectedId)] : visibleCafes;
+    return selected
+      ? [selected, ...visibleCafes.filter((cafe) => cafe.id !== selectedId)]
+      : visibleCafes;
   }, [visibleCafes, selectedId]);
 
   const selectCafe = useCallback((cafe) => {
@@ -93,7 +95,7 @@ export default function FinderView() {
     sheetRef.current?.snapToIndex(Math.max(1, sheetIndexRef.current));
     mapRef.current?.animateToRegion(
       { ...cafe.coordinate, latitudeDelta: 0.03, longitudeDelta: 0.03 },
-      350
+      350,
     );
   }, []);
 

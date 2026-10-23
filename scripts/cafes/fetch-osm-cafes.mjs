@@ -149,7 +149,8 @@ const overrides = await readOverrides();
 
 const named = groupWithMunicipality(data.elements).filter(({ element }) => element.tags?.name);
 const cafes = applyOverrides(named.map(normalize), overrides).sort(
-  (a, b) => (a.municipality ?? "").localeCompare(b.municipality ?? "") || a.name.localeCompare(b.name)
+  (a, b) =>
+    (a.municipality ?? "").localeCompare(b.municipality ?? "") || a.name.localeCompare(b.name),
 );
 
 await mkdir("data/cafes", { recursive: true });
@@ -167,8 +168,8 @@ await writeFile(
       cafes,
     },
     null,
-    2
-  ) + "\n"
+    2,
+  ) + "\n",
 );
 
 const missingHours = cafes.filter((c) => !c.hoursRaw);
@@ -176,15 +177,30 @@ const unparsedHours = cafes.filter((c) => c.hoursRaw && !c.hours);
 const missingAddress = cafes.filter((c) => !c.address);
 
 console.log(`Wrote ${cafes.length} cafés to ${OUTPUT_PATH}`);
-console.log(`  independent: ${cafes.filter((c) => !c.isChain).length}, chains: ${cafes.filter((c) => c.isChain).length}`);
-console.log(`  skipped unnamed: ${data.elements.filter((e) => e.type !== "area" && !e.tags?.name).length}`);
+console.log(
+  `  independent: ${cafes.filter((c) => !c.isChain).length}, chains: ${cafes.filter((c) => c.isChain).length}`,
+);
+console.log(
+  `  skipped unnamed: ${data.elements.filter((e) => e.type !== "area" && !e.tags?.name).length}`,
+);
 console.log(`  excluded by overrides: ${named.length - cafes.length}`);
 
 const list = (label, items, detail = () => "") => {
   if (items.length === 0) return;
   console.log(`\n${label} (${items.length}):`);
-  for (const c of items) console.log(`  ${c.id.padEnd(22)} ${c.name} — ${c.municipality}${detail(c)}`);
+  for (const c of items)
+    console.log(`  ${c.id.padEnd(22)} ${c.name} — ${c.municipality}${detail(c)}`);
 };
-list("Unparseable hours, fix via hoursRaw in overrides.json", unparsedHours, (c) => ` [${c.hoursRaw}]`);
-list("Independent cafés missing hours", missingHours.filter((c) => !c.isChain));
-list("Independent cafés missing a street address", missingAddress.filter((c) => !c.isChain));
+list(
+  "Unparseable hours, fix via hoursRaw in overrides.json",
+  unparsedHours,
+  (c) => ` [${c.hoursRaw}]`,
+);
+list(
+  "Independent cafés missing hours",
+  missingHours.filter((c) => !c.isChain),
+);
+list(
+  "Independent cafés missing a street address",
+  missingAddress.filter((c) => !c.isChain),
+);

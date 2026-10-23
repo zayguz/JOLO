@@ -79,84 +79,90 @@ export default function RegisterView() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Join JOLO to discover cafés and share what you're drinking</Text>
+          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.subtitle}>
+            Join JOLO to discover cafés and share what you're drinking
+          </Text>
 
-        <View style={styles.form}>
-          <Field
-            label="Full Name"
-            value={name}
-            onChangeText={setName}
-            placeholder="Jordan Lee"
-            error={missing(name)}
-          />
-          <Field
-            label="Email"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="you@example.com"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            textContentType="emailAddress"
-            autoComplete="email"
-            error={missing(email) || badEmail}
-          />
-          <Field
-            label="Password"
-            value={password}
-            onChangeText={setPassword}
-            placeholder="At least 8 characters"
-            secureTextEntry
-            textContentType="newPassword"
-            autoComplete="password-new"
-            error={missing(password) || shortPassword}
-          />
-          <View>
+          <View style={styles.form}>
             <Field
-              label="Confirm Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Re-enter your password"
+              label="Full Name"
+              value={name}
+              onChangeText={setName}
+              placeholder="Jordan Lee"
+              error={missing(name)}
+            />
+            <Field
+              label="Email"
+              value={email}
+              onChangeText={setEmail}
+              placeholder="you@example.com"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              textContentType="emailAddress"
+              autoComplete="email"
+              error={missing(email) || badEmail}
+            />
+            <Field
+              label="Password"
+              value={password}
+              onChangeText={setPassword}
+              placeholder="At least 8 characters"
               secureTextEntry
               textContentType="newPassword"
               autoComplete="password-new"
-              error={missing(confirmPassword) || mismatch}
+              error={missing(password) || shortPassword}
             />
-            {mismatch && <Text style={styles.fieldError}>Passwords don't match.</Text>}
+            <View>
+              <Field
+                label="Confirm Password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Re-enter your password"
+                secureTextEntry
+                textContentType="newPassword"
+                autoComplete="password-new"
+                error={missing(confirmPassword) || mismatch}
+              />
+              {mismatch && <Text style={styles.fieldError}>Passwords don't match.</Text>}
+            </View>
+            {badEmail && <Text style={styles.fieldError}>Enter a valid email address.</Text>}
+            {shortPassword && (
+              <Text style={styles.fieldError}>
+                Passwords need to be at least {MIN_PASSWORD_LENGTH} characters.
+              </Text>
+            )}
           </View>
-          {badEmail && <Text style={styles.fieldError}>Enter a valid email address.</Text>}
-          {shortPassword && (
-            <Text style={styles.fieldError}>
-              Passwords need to be at least {MIN_PASSWORD_LENGTH} characters.
-            </Text>
+
+          {error && (
+            <View style={styles.errorBanner}>
+              <Ionicons name="alert-circle-outline" size={16} color="#410002" />
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
           )}
-        </View>
 
-        {error && (
-          <View style={styles.errorBanner}>
-            <Ionicons name="alert-circle-outline" size={16} color="#410002" />
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        )}
-
-        <Pressable
-          style={({ pressed }) => [styles.primaryBtn, pressed && styles.pressed, busy && styles.btnBusy]}
-          onPress={handleSignUp}
-          disabled={busy}
-        >
-          {busy ? (
-            <ActivityIndicator color={Palette.onPrimary} />
-          ) : (
-            <Text style={styles.primaryBtnLabel}>Sign Up</Text>
-          )}
-        </Pressable>
-
-        <View style={styles.footerRow}>
-          <Text style={styles.footerText}>Already have an account? </Text>
-          <Pressable onPress={() => router.back()} hitSlop={8} disabled={busy}>
-            <Text style={styles.footerLink}>Sign In</Text>
+          <Pressable
+            style={({ pressed }) => [
+              styles.primaryBtn,
+              pressed && styles.pressed,
+              busy && styles.btnBusy,
+            ]}
+            onPress={handleSignUp}
+            disabled={busy}
+          >
+            {busy ? (
+              <ActivityIndicator color={Palette.onPrimary} />
+            ) : (
+              <Text style={styles.primaryBtnLabel}>Sign Up</Text>
+            )}
           </Pressable>
-        </View>
+
+          <View style={styles.footerRow}>
+            <Text style={styles.footerText}>Already have an account? </Text>
+            <Pressable onPress={() => router.back()} hitSlop={8} disabled={busy}>
+              <Text style={styles.footerLink}>Sign In</Text>
+            </Pressable>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

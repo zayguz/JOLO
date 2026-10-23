@@ -64,23 +64,38 @@ export default function ProfileView() {
         <Text style={styles.version}>JOLO · Aroma & Crema · v1.0.0</Text>
       </ScrollView>
 
-      <Modal visible={confirmOpen} transparent animationType="fade" onRequestClose={() => setConfirmOpen(false)}>
+      <Modal
+        visible={confirmOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setConfirmOpen(false)}
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.confirmCard}>
             <View style={styles.confirmIcon}>
               <Ionicons name="log-out-outline" size={24} color={Palette.error} />
             </View>
             <Text style={styles.confirmTitle}>Sign out of JOLO?</Text>
-            <Text style={styles.confirmSub}>You'll need to sign back in to post and save favorites.</Text>
+            <Text style={styles.confirmSub}>
+              You'll need to sign back in to post and save favorites.
+            </Text>
             <View style={styles.confirmActions}>
               <Pressable
-                style={({ pressed }) => [styles.confirmBtn, styles.confirmCancel, pressed && styles.pressed]}
+                style={({ pressed }) => [
+                  styles.confirmBtn,
+                  styles.confirmCancel,
+                  pressed && styles.pressed,
+                ]}
                 onPress={() => setConfirmOpen(false)}
               >
                 <Text style={styles.confirmCancelLabel}>Cancel</Text>
               </Pressable>
               <Pressable
-                style={({ pressed }) => [styles.confirmBtn, styles.confirmSignOut, pressed && styles.pressed]}
+                style={({ pressed }) => [
+                  styles.confirmBtn,
+                  styles.confirmSignOut,
+                  pressed && styles.pressed,
+                ]}
                 onPress={handleSignOut}
               >
                 <Text style={styles.confirmSignOutLabel}>Sign Out</Text>
@@ -104,7 +119,9 @@ function Group({ title, children }) {
 
 function Row({ icon, label, value, last }) {
   return (
-    <Pressable style={({ pressed }) => [styles.row, !last && styles.rowBorder, pressed && styles.rowPressed]}>
+    <Pressable
+      style={({ pressed }) => [styles.row, !last && styles.rowBorder, pressed && styles.rowPressed]}
+    >
       <View style={styles.rowIcon}>
         <Ionicons name={icon} size={18} color={Palette.primary} />
       </View>
