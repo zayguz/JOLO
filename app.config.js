@@ -7,11 +7,13 @@ const VARIANTS = {
     name: "JOLO (Dev)",
     bundleId: "com.zayguz.jolo.dev",
     scheme: "joloapp-dev",
+    firebaseDir: "./firebase/dev",
   },
   production: {
     name: "JOLO",
     bundleId: "com.zayguz.jolo",
     scheme: "joloapp",
+    firebaseDir: "./firebase/prod",
   },
 };
 
@@ -22,6 +24,14 @@ if (!variant) {
     `Unknown APP_VARIANT "${variantName}". Use one of: ${Object.keys(VARIANTS).join(", ")}.`,
   );
 }
+
+// The native Firebase SDK reads its project from these files, which are
+// git-ignored. Local builds use firebase/<env>/; EAS builds point these env vars
+// at file environment variables instead.
+const googleServicesPlist =
+  process.env.GOOGLE_SERVICES_PLIST ?? `${variant.firebaseDir}/GoogleService-Info.plist`;
+const googleServicesJson =
+  process.env.GOOGLE_SERVICES_JSON ?? `${variant.firebaseDir}/google-services.json`;
 
 module.exports = {
   expo: {
@@ -45,20 +55,31 @@ module.exports = {
     ios: {
       supportsTablet: true,
       bundleIdentifier: variant.bundleId,
+      googleServicesFile: googleServicesPlist,
     },
     android: {
       package: variant.bundleId,
+      googleServicesFile: googleServicesJson,
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
       edgeToEdgeEnabled: true,
     },
-    web: {
-      favicon: "./assets/favicon.png",
-    },
     plugins: [
       "expo-router",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "expo-build-properties",
+        {
+          // The Firebase iOS SDK installs through Swift Package Manager, which
+          // needs dynamic frameworks. See docs/rnfirebase-migration.md.
+          // react-native-maps fails to link as a dynamic framework (undefined
+          // React symbols such as RCTViewManager), so it stays static.
+          ios: { useFrameworks: "dynamic", forceStaticLinking: ["react-native-maps"] },
+        },
+      ],
       [
         "expo-location",
         {

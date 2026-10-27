@@ -6,8 +6,8 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   updateProfile,
-} from "firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore/lite";
+} from "@react-native-firebase/auth";
+import { doc, getDoc, serverTimestamp, setDoc } from "@react-native-firebase/firestore";
 import { auth, db } from "@/FirebaseConfig";
 
 const AuthContext = createContext(null);

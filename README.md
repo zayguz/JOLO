@@ -7,7 +7,7 @@ See [docs/ROADMAP.md](docs/ROADMAP.md) for what's left before launch.
 ## Prerequisites
 
 - Node.js 20+ and npm
-- Xcode (iOS Simulator) and/or Android Studio, to build the development app. The app runs as a [development build](https://docs.expo.dev/develop/development-builds/introduction/), not in Expo Go, because native Firebase modules are on the way (see [docs/rnfirebase-migration.md](docs/rnfirebase-migration.md)).
+- Xcode (iOS Simulator) and/or Android Studio, to build the development app. The app runs as a [development build](https://docs.expo.dev/develop/development-builds/introduction/), not in Expo Go, because it uses native Firebase modules ([React Native Firebase](https://rnfirebase.io/)). iOS, Android only; there is no web build.
 - Access to the JOLO Firebase projects (below)
 - An [Expo](https://expo.dev/) account for cloud builds (`npx eas-cli login`)
 - Java 21+ (e.g. `brew install --cask temurin@21`) to run the Firestore emulator and `npm run test:rules`
@@ -31,17 +31,9 @@ The two apps install side by side, and a dev build never talks to the production
    npm install
    ```
 
-2. Copy the env template and fill in the **dev** project's web app config (Firebase console → `jolo-ec76d` → Project settings → General → Your apps → Web app):
+2. Put the dev project's native config files (Firebase console → `jolo-ec76d` → Project settings → Your apps → the `com.zayguz.jolo.dev` apps) at `firebase/dev/GoogleService-Info.plist` and `firebase/dev/google-services.json`, named exactly that. The whole `firebase/` folder is git-ignored. The app reads its Firebase project from these files; there is no `.env` file to fill in. A production build (`APP_VARIANT=production`) reads `firebase/prod/` instead.
 
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   `.env.local` is git-ignored. Until the move to React Native Firebase, the app reads its Firebase config from these `EXPO_PUBLIC_*` values.
-
-3. Put the dev project's native config files (Project settings → Your apps → the `com.zayguz.jolo.dev` apps) at `firebase/dev/GoogleService-Info.plist` and `firebase/dev/google-services.json`. The whole `firebase/` folder is git-ignored. Nothing reads these files yet; the native Firebase SDK will.
-
-4. Build and launch the development app (the first build takes a few minutes):
+3. Build and launch the development app (the first build takes a few minutes):
 
    ```bash
    npm run ios
@@ -53,10 +45,14 @@ The two apps install side by side, and a dev build never talks to the production
 
 ### Cloud builds (EAS)
 
-Profiles live in [eas.json](eas.json): `development` (dev client on a device), `development-simulator`, `preview` (internal testing against production), and `production` (store builds). EAS builds don't see `.env.local`, so set the `EXPO_PUBLIC_FIREBASE_*` values per EAS environment:
+Profiles live in [eas.json](eas.json): `development` (dev client on a device), `development-simulator`, `preview` (internal testing against production), and `production` (store builds). EAS builds can't see the git-ignored `firebase/` folder, so upload the config files as file environment variables for each EAS environment. [app.config.js](app.config.js) reads them from `GOOGLE_SERVICES_PLIST` and `GOOGLE_SERVICES_JSON`:
 
 ```bash
-npx eas-cli env:create --environment development --name EXPO_PUBLIC_FIREBASE_PROJECT_ID --value jolo-ec76d --visibility plaintext
+npx eas-cli env:create --environment development --type file --visibility sensitive --name GOOGLE_SERVICES_PLIST --value ./firebase/dev/GoogleService-Info.plist
+```
+
+```bash
+npx eas-cli env:create --environment development --type file --visibility sensitive --name GOOGLE_SERVICES_JSON --value ./firebase/dev/google-services.json
 ```
 
 Then build:
@@ -118,7 +114,6 @@ firestore.rules        Firestore security rules
 | `npm start` | Start the dev server for an installed development build |
 | `npm run ios` | Build and run the development app on iOS (`expo run:ios`) |
 | `npm run android` | Build and run the development app on Android (`expo run:android`) |
-| `npm run web` | Start the Expo web dev server |
 | `npm run lint` | Lint with ESLint (`eslint-config-expo`) |
 | `npm run format` | Format with Prettier (`format:check` to verify only) |
 | `npm run typecheck` | Type-check the TypeScript files |
