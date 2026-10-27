@@ -41,7 +41,7 @@ Status as of 2026-10-23. Check items off (`- [x]`) as they land.
 - [ ] 9. Cloud Functions for anything clients can't be trusted with: café `ratingSum` / `ratingCount` / `favoriteCount`, user stats (`postCount`, `followerCount`, `followingCount`), notification fan-out, and account-deletion cleanup.
 - [ ] 10. Firebase Storage for avatars and post photos, with Storage rules (size/type limits, owner-only writes). Use `expo-image-picker` and resize before upload.
 - [ ] 11. Add `firestore.indexes.json` to [firebase.json](../firebase.json) for feed queries (posts by author + time, posts by café + time).
-- [ ] 12. Switch from Firestore Lite to `@react-native-firebase` (decided 2026-10-23) for realtime listeners, offline cache, and native App Check. Needs dev builds instead of Expo Go. Plan: [rnfirebase-migration.md](rnfirebase-migration.md), starting once item 6's projects exist.
+- [x] 12. Switch from Firestore Lite to `@react-native-firebase` (decided 2026-10-23) for realtime listeners, offline cache, and native App Check. Needs dev builds instead of Expo Go. Plan: [rnfirebase-migration.md](rnfirebase-migration.md), starting once item 6's projects exist.
 
 ## Phase 2: Finish the features (~2–3 weeks)
 

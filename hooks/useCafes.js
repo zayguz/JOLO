@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs } from "@react-native-firebase/firestore";
 import { db } from "@/FirebaseConfig";
 
 function toCafe(doc) {

@@ -3,5 +3,5 @@
 module.exports = {
   testEnvironment: "node",
   testMatch: ["<rootDir>/tests/rules/**/*.test.js"],
-  modulePathIgnorePatterns: ["<rootDir>/.claude/"],
+  modulePathIgnorePatterns: ["<rootDir>/.claude/", "<rootDir>/ios/", "<rootDir>/android/"],
 };
