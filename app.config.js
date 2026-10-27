@@ -27,6 +27,7 @@ module.exports = {
   expo: {
     name: variant.name,
     slug: "jolo",
+    owner: "zayguz",
     scheme: variant.scheme,
     version: "1.0.0",
     orientation: "portrait",
@@ -68,6 +69,10 @@ module.exports = {
     ],
     extra: {
       appVariant: variantName,
+      eas: {
+        // https://expo.dev/accounts/zayguz/projects/jolo
+        projectId: "13890eef-f2aa-4082-b767-001def140411",
+      },
     },
   },
 };
